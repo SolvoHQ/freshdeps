@@ -1,0 +1,18 @@
+{
+  "last_dream_ts": "2026-05-15T16:54:29+00:00",
+  "raw_sha": {
+    "540ff8db513a4ac58a17763cb141fdb9-architecture-audit-freshdeps-mvp.md": "6bb174714000985dff7e08e973d9856b8e46fe82c68d7cd73555f6e0532c8c3d",
+    "540ff8db513a4ac58a17763cb141fdb9-freshdeps-mvp-shipped-live.md": "9547fe2ca956d08c570178bad3b5697d577392aadc55ed121764987c765977b9",
+    "540ff8db513a4ac58a17763cb141fdb9-freshdeps-prod-deploy-ghtoken-prerender-survived.md": "7076cf8f3eae8f72b5fb928ac39365aba4ef47d82ff18c6430ad2612b5d4ab45",
+    "540ff8db513a4ac58a17763cb141fdb9-freshdeps-staticparams-upstream-ceiling.md": "f2ff900186f9a15dbcf4435f1e0881f06977dbca0342428198df7bfdaa7513b7",
+    "540ff8db513a4ac58a17763cb141fdb9-goatcounter-analytics-live.md": "710d09f5da93137ee8eec50edbc43b673f3384a626283dc194e47034b378affa",
+    "660502e837114102be6f1bff0621a430-freshdeps-devto-published.md": "1f34be171711b670d8c0c75f7c14ce3732d146064eaa968d6c4da9cfab7606af",
+    "660502e837114102be6f1bff0621a430-freshdeps-distribution-shipped-channels-mapped.md": "fdb27585beae6eda2bacb9a90bef3baf878655cd26a685227039a0e9f561b2ce",
+    "660502e837114102be6f1bff0621a430-freshdeps-mcp-directory-submissions.md": "d1b1329e3d14551c52f432fc93b0a265a5f6c413b0847cc1af3ef5826a772035",
+    "660502e837114102be6f1bff0621a430-freshdeps-mcp-zero-account-npx-github.md": "9758fc36d5aa3ea9e9671acedfbcb73694e4bb6dfc28285ae909fbffa7f213df",
+    "660502e837114102be6f1bff0621a430-freshdeps-show-hn-blocked-account-creation-disabled.md": "b3e5ddbbe295229d2005fd6c8d42c927ab3a96b2af3f54f45d013f8a52b2a97a",
+    "cae7d2d494dd4e8e919f11dd9066e445-wedge-chosen-freshdeps.md": "ee56990f6b5460eed3013536163f397b96c2564d2fbdf823262be5a6bdc34385",
+    "cae7d2d494dd4e8e919f11dd9066e445-wedge_audit-critique.md": "28b31f7e04887e06de1009a8cadf6ecf83b190c900efbe4d6e366720a7beb1bc",
+    "devto-article-body.md": "57dbd76620b84ac67a90535c3257f536238ce0cdd442c6ad42dea609965296b8"
+  }
+}
