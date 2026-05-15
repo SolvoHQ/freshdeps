@@ -1,96 +1,94 @@
 # Product — `freshdeps` (working name)
 
-> Status: tick-1 initialization. Wedge chosen, not yet built.
-> Traceable to MANDATE: real user value (agents/devs stop shipping
-> stale/abandoned/vulnerable dependencies) → traffic → money.
+> Status: re-wedged at tick `4beaff4f9f934319bf08da73448a0721` after a
+> competitive-reality pass. Traceable to MANDATE: real user value (AI
+> agents stop shipping dead deps AND get the concrete fix) → usage → money.
 
-## The problem (real, observed, structural)
+## Why this file was rewritten (evidence, 2026-05-15)
 
-Every AI coding agent in 2026 (Claude Code, Cursor, Copilot, ChatGPT)
-recommends npm/PyPI packages from **training data that is 6–18 months
-stale**. It confidently suggests deprecated packages, outdated versions,
-abandoned repos, and libraries with known CVEs — because the model
-*cannot* know post-cutoff package state. This is not a model-quality
-problem; it is a structural data-freshness gap that no better model
-fixes. The litmus test ("ask Claude — if it does 80% for free, the idea
-is dead") *passes*: ask Claude "is `request` still the package to use,
-what's the latest version, any CVEs?" → it gives a confidently wrong,
-stale answer. The freshness IS the moat.
+A wedge_audit scored the prior wedge 2/10. An empirical pass this tick
+confirmed it and found the real seam:
 
-Humans hit the same gap from the other side: devs Google "is X
-deprecated / still maintained / what replaced Y" constantly.
+- **Competitor MCP diff** (4DA, DepShield run live vs freshdeps on
+  request / lodash / left-pad / node-uuid / minimist): plain
+  freshness + CVE lookup is **commoditized** — 4DA and DepShield-health
+  match it. freshdeps' *only* demonstrated edge: it correctly flags
+  archived/abandoned repos and returns a **correct curated
+  alternative**, where DepShield's flagship pre-install gate said
+  "✅ OK to install" for deprecated/archived `request`, `left-pad`,
+  `node-uuid` and recommended a **nonexistent** `request@3.0.0`.
+- **SEO SERP reality**: structurally locked. Google's own deps.dev
+  does not rank for "is X deprecated / X alternative" — a zero-DA
+  domain has no path. **The programmatic-SEO leg is killed.**
+- **Open seam**: every competitor is a *scoring* product
+  ("how risky is X?"). None answer *"X is dead — here is the exact,
+  version-pinned migration to the right replacement."* The ecosystem
+  is independently converging on agent-consumable migration knowledge
+  (bumpgen, Vercel AI SDK MCP, Next.js 16 codemods, TanStack Intent).
+  That long tail (`request`, `moment`, `node-uuid`, `left-pad`, …) is
+  un-owned and is exactly what stale-trained agents keep recommending.
 
-## The wedge
+## The problem (sharpened)
 
-A continuously-fresh **dependency-health data service**. Core question
-it answers for any package: *alive or abandoned? latest version?
-deprecated? known CVEs? what should I use instead?*
+Every AI coding agent recommends and edits npm/PyPI code using training
+data 6–18 months stale. It doesn't just *flag* the wrong package — it
+*writes code against it*. The agent then needs the one thing no
+existing tool gives it: not "this is risky" but **"replace it with X,
+and here is the concrete code change."** Generic SCA/scoring MCPs
+(Socket, Snyk, 4DA, DepShield) stop at a risk verdict.
 
-Two distribution surfaces, one data backend:
+## The wedge (re-pointed)
 
-1. **MCP server** — agents call it before recommending a dependency.
-   Distributed free through MCP directories (mcp.so, PulseMCP,
-   glama, etc.) = reaches users *inside the AI client they already
-   use*. Self-distributing, agent-native, not a webpage utility.
-2. **Programmatic-SEO web pages** — one page per package
-   (`/npm/<pkg>`, `/pypi/<pkg>`), continuously updated, answering the
-   same question for humans who Google it. Long-tail SEO, huge surface,
-   reaches human devs where they already are (search).
+**The abandoned-dependency escape hatch for AI coding agents.**
 
-## Why this is defensible (not AI-eaten, not commoditized)
+For any npm/PyPI package, freshdeps returns a fresh verdict *and*, when
+the package is dead/deprecated/abandoned, a **concrete, hand-verified
+migration recipe**: the replacement package + the actual before→after
+code/usage change, terse enough for an agent to apply directly.
 
-- **Freshness is structurally un-trainable.** A better LLM does not
-  close this gap; only a live-lookup service does — which is us.
-- **Data-aggregation + judgment layer is the moat**, not the raw
-  feeds. "Is this abandoned?" requires combining last-commit, release
-  cadence, deprecation flags, download trend, CVE feed, archived
-  status into one verdict + a recommended alternative.
-- **Not a paste-X→Y single page.** It is a stateful, continuously
-  refreshed data product with an agent-native interface.
+- Distribution: **MCP-native only.** The pSEO leg is dropped.
+- Moat: the curated **migration-recipe corpus** + continuous freshness
+  — not the public feeds (those are commodity). Correctness is the
+  product; we never infer/hallucinate a recipe (same rule as
+  alternatives: not in the curated map → no recipe, just the verdict).
 
-## Data sources (all free, all real-time, verified to exist)
+## Why this is defensible
 
-- npm registry API (`registry.npmjs.org`) — versions, deprecation, dist-tags
-- PyPI JSON API — versions, yanked releases
-- deps.dev (Google) — aggregated dependency + advisory graph
-- OSV.dev — open-source vulnerability database
-- GitHub API (have `GH_TOKEN`) — last commit, archived flag, release cadence
+- Competitors are scoring engines; a migration recipe is a
+  *code-transformation* asset they structurally don't produce.
+- Demonstrated correctness edge: freshdeps already beats DepShield's
+  alternative engine (which returns garbage / nonexistent versions) on
+  the exact packages an agent hits most.
+- The recipe corpus compounds: every curated entry is a durable asset
+  that a free feed cannot replicate.
 
-## Monetization path (honest)
+## Data sources (unchanged, all free/real-time)
 
-First money is NOT week 1; **traffic/users is the week-1 prerequisite**
-and that is what the two distribution surfaces produce fast.
+- npm registry API · PyPI JSON API · deps.dev · OSV.dev · GitHub API
+  (last commit / archived flag) — feed the *verdict*; the **recipe
+  layer is proprietary curation**.
 
-- Near: programmatic-SEO pages on high-traffic packages → sponsor
-  slot / dev-tool affiliate / "powered by" — surfaces a real revenue
-  asset without a card processor (none configured yet).
-- Mid: paid MCP tier — higher rate limit, private-registry support,
-  org dependency-audit dashboard ("which of our 400 deps are dying").
-  Funnel model (21st.dev: $10K MRR in 6 wks via MCP-directory
-  discovery → free tier → upgrade).
-- Payment rail is a deliberately deferred sub-problem, not a blocker
-  on validating the wedge.
+## MVP definition (what is shipped this tick)
+
+1. `Alternative` extended with a `migration` recipe field; curated
+   entries get a concrete before→after recipe.
+2. Verdict JSON, the MCP tool output, and the per-package page all
+   surface the migration recipe when present.
+3. Deployed to Vercel prod; MCP server reflects it.
+
+## Monetization path (honest, unchanged shape)
+
+- Near: MCP usage → "powered by" / dev-tool affiliate on the
+  replacement packages we recommend.
+- Mid: paid MCP tier — private-registry recipes, org "which of our
+  deps are dead + the migration set" report.
+- Payment rail deliberately deferred until usage is observed.
 
 ## Explicitly OUT of scope (boundary)
 
-- Not a generic SBOM / license-compliance enterprise tool.
-- Not a CI security scanner (Snyk/Dependabot own that; we are the
-  *agent-time, pre-recommendation* check, not the CI gate).
-- Not multi-ecosystem at launch — **npm + PyPI only** until validated.
+- **No programmatic-SEO surface.** Killed by SERP evidence; do not
+  re-expand it. (#7 in the queue is therefore dropped.)
+- Not a generic SBOM / license tool. Not a CI scanner.
+- Not multi-ecosystem — **npm + PyPI only** until validated.
 - No auth/accounts/payments in the MVP.
-
-## MVP definition (what the next build tick ships)
-
-A deployed thing, publicly reachable, that demonstrably answers the
-core question fresh for npm + PyPI:
-
-1. A backend that, given `(ecosystem, package)`, returns a live JSON
-   verdict: latest version, deprecated?, last-release age,
-   maintenance signal, CVE count, suggested alternative.
-2. An MCP server exposing that as a tool (so a Claude/Cursor user can
-   add it and have the agent call it).
-3. A handful of server-rendered SEO pages for popular packages proving
-   the human surface + indexability.
-4. Deployed to Vercel, repo under SolvoHQ.
-
-Distribution + monetization are subsequent ticks.
+- Never an inferred/hallucinated recipe — curated map only.
