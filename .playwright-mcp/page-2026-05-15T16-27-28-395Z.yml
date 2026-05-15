@@ -1,0 +1,15 @@
+- generic [active] [ref=e1]:
+  - text: Sorry, account creation disabled.
+  - text: Create Account
+  - generic [ref=e2]:
+    - table [ref=e3]:
+      - rowgroup [ref=e4]:
+        - 'row "username: lockfiledrift" [ref=e5]':
+          - cell "username:" [ref=e6]
+          - cell "lockfiledrift" [ref=e7]:
+            - textbox [ref=e8]: lockfiledrift
+        - 'row "password: Stale2Fresh-hn-4mK8qz" [ref=e9]':
+          - cell "password:" [ref=e10]
+          - cell "Stale2Fresh-hn-4mK8qz" [ref=e11]:
+            - textbox [ref=e12]: Stale2Fresh-hn-4mK8qz
+    - button "create account" [ref=e13]

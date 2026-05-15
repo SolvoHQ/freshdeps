@@ -1,0 +1,15 @@
+- generic [active] [ref=e1]:
+  - text: Sorry, account creation disabled.
+  - text: Create Account
+  - generic [ref=e2]:
+    - table [ref=e3]:
+      - rowgroup [ref=e4]:
+        - 'row "username: depdrift" [ref=e5]':
+          - cell "username:" [ref=e6]
+          - cell "depdrift" [ref=e7]:
+            - textbox [ref=e8]: depdrift
+        - 'row "password: Fr3shD3ps-hn-9x7Qm2" [ref=e9]':
+          - cell "password:" [ref=e10]
+          - cell "Fr3shD3ps-hn-9x7Qm2" [ref=e11]:
+            - textbox [ref=e12]: Fr3shD3ps-hn-9x7Qm2
+    - button "create account" [ref=e13]
