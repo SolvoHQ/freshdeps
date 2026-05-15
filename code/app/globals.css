@@ -253,6 +253,42 @@ footer {
   font-size: 14px;
 }
 
+.convert {
+  border: 1px solid var(--accent);
+  background: rgba(57, 211, 83, 0.06);
+  padding: 22px 24px;
+  margin: 24px 0;
+}
+.convert-live {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.convert-live strong {
+  color: var(--active);
+}
+.convert-hook {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 12px;
+}
+.convert-cmd {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  margin: 10px 0 0;
+  overflow-x: auto;
+  font-size: 13px;
+  color: var(--accent);
+  white-space: pre;
+  user-select: all;
+}
+.convert-foot {
+  color: var(--dim);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
 .banner {
   border: 1px solid var(--stale);
   background: rgba(210, 153, 34, 0.08);

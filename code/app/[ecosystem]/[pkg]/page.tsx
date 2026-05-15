@@ -101,6 +101,14 @@ export default async function PackagePage({
 
   const eco = ecosystem === "npm" ? "npm" : "PyPI";
   const color = STATUS_COLOR[v.maintenance] ?? "var(--unknown)";
+  const checkedDate = new Date(v.checkedAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+  const mcpOneLiner =
+    "claude mcp add freshdeps -- npx -y github:SolvoHQ/freshdeps-mcp";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -146,6 +154,29 @@ export default async function PackagePage({
         >
           <div className="status-word">{v.maintenance}</div>
           <div className="status-sub">{STATUS_SUB[v.maintenance]}</div>
+        </div>
+
+        <div className="convert">
+          <div className="convert-live">
+            ✓ freshdeps checked <strong>{decoded}</strong> live against{" "}
+            {eco}, GitHub &amp; OSV on <strong>{checkedDate}</strong> — but it
+            goes stale again.
+          </div>
+          <div className="convert-hook">
+            Install the MCP so your AI agent checks freshness{" "}
+            <em>before</em> it recommends a dependency:
+          </div>
+          <pre className="convert-cmd">
+            <code>{mcpOneLiner}</code>
+          </pre>
+          <div className="convert-foot">
+            One line. Works in Claude Code / Cursor / any MCP client (or paste
+            the{" "}
+            <Link href="/" style={{ color: "var(--accent)" }}>
+              JSON config
+            </Link>
+            ). Zero npm account needed.
+          </div>
         </div>
 
         <div className="grid">
