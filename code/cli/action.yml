@@ -1,0 +1,26 @@
+name: "freshdeps — dead dependency gate"
+description: >-
+  Scans your repo's npm/PyPI manifests, catches dead/deprecated/abandoned
+  dependencies, and prints the hand-verified migration recipe to fix each one.
+  Fails the build when dead deps are found (configurable).
+
+branding:
+  icon: package
+  color: red
+
+inputs:
+  path:
+    description: "Directory to scan for manifests."
+    required: false
+    default: "."
+  fail-on-dead:
+    description: "Fail the workflow when a dead dependency is found."
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Run freshdeps scan
+      shell: bash
+      run: npx -y github:SolvoHQ/freshdeps-cli "${{ inputs.path }}" ${{ inputs.fail-on-dead == 'false' && '--no-fail' || '' }}

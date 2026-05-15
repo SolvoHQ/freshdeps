@@ -1,0 +1,9 @@
+{
+  "name": "freshdeps-cli",
+  "version": "0.1.0",
+  "description": "Zero-install scanner: finds dead/deprecated/abandoned npm & PyPI deps in your repo and prints the hand-verified migration recipe. CI gate (non-zero exit on dead deps).",
+  "type": "module",
+  "bin": { "freshdeps": "index.js" },
+  "files": ["index.js", "action.yml", "README.md"],
+  "engines": { "node": ">=20" }
+}
