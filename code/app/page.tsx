@@ -82,7 +82,7 @@ export default function Home() {
           {`: [`}
           <span className="s">&quot;-y&quot;</span>
           {`, `}
-          <span className="s">&quot;freshdeps-mcp&quot;</span>
+          <span className="s">&quot;github:SolvoHQ/freshdeps-mcp&quot;</span>
           {`]
     }
   }
