@@ -1,0 +1,147 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Help" [ref=e4] [cursor=pointer]:
+        - /url: /help
+      - text: "|"
+      - link "Settings" [ref=e5] [cursor=pointer]:
+        - /url: /settings
+      - text: "|"
+      - link "agent+goatcounter@" [ref=e6] [cursor=pointer]:
+        - /url: /user
+      - text: "|"
+      - button "Sign out" [ref=e8] [cursor=pointer]
+  - generic [ref=e9]:
+    - generic [ref=e10]: "\"agent+goatcounter@foundagent.net\" verified"
+    - generic [ref=e11]:
+      - button "Submit"
+      - generic [ref=e12]: ⚙️
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - textbox "First day to display" [ref=e16]: 2026-05-08
+            - text: –
+            - textbox "Last day to display" [ref=e17]: 2026-05-15
+          - generic [ref=e19]:
+            - text: Last
+            - button "day" [ref=e20] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e21] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e22] [cursor=pointer]
+            - text: ·
+            - button "quarter" [ref=e23] [cursor=pointer]
+            - text: ·
+            - button "half year" [ref=e24] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e25] [cursor=pointer]
+        - generic [ref=e26]:
+          - textbox "Filter paths" [ref=e30]
+          - generic [ref=e31]:
+            - text: "View by:"
+            - button "hour" [ref=e32] [cursor=pointer]
+            - text: ·
+            - button "day" [ref=e33] [cursor=pointer]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - text: ←︎ back
+          - generic [ref=e36]:
+            - button "day" [ref=e37] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e38] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e39] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e40] [cursor=pointer]
+        - generic [ref=e41]: 1 week ago–Today
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - button "day" [ref=e44] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e45] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e46] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e47] [cursor=pointer]
+          - text: forward →︎
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - heading "Pages 1 out of 1 visits shown" [level=2] [ref=e51]:
+          - text: Pages
+          - generic [ref=e52]: 1 out of 1 visits shown
+        - table [ref=e53]:
+          - rowgroup [ref=e54]:
+            - row "1 (new) /smoketest smoke 1" [ref=e55]:
+              - cell "1 (new)" [ref=e56]:
+                - text: "1"
+                - generic "Change compared to previous period" [ref=e57]: (new)
+              - cell "/smoketest smoke" [ref=e58]:
+                - link "/smoketest" [ref=e59] [cursor=pointer]:
+                  - /url: "#"
+                - text: smoke
+              - cell "1" [ref=e60]:
+                - generic [ref=e63]: "1"
+      - generic [ref=e64]:
+        - heading "Totals 1 visits" [level=2] [ref=e66]:
+          - text: Totals
+          - generic [ref=e67]: 1 visits
+        - table [ref=e68]:
+          - rowgroup [ref=e69]:
+            - row "Loading…" [ref=e70]:
+              - cell "Loading…" [ref=e71]:
+                - generic [ref=e72]: Loading…
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - heading "Top referrers" [level=2] [ref=e76]
+          - text: Loading…
+        - generic [ref=e77]:
+          - heading "Campaigns" [level=2] [ref=e79]
+          - text: Loading…
+        - generic [ref=e80]:
+          - heading "Browsers" [level=2] [ref=e82]
+          - text: Loading…
+        - generic [ref=e83]:
+          - heading "Systems" [level=2] [ref=e85]
+          - text: Loading…
+        - generic [ref=e86]:
+          - heading "Locations" [level=2] [ref=e88]
+          - text: Loading…
+        - generic [ref=e89]:
+          - heading "Languages" [level=2] [ref=e91]
+          - generic [ref=e92]:
+            - text: Collecting this information is currently
+            - link "disabled in settings" [ref=e93] [cursor=pointer]:
+              - /url: /settings/main#section-collect
+            - text: .
+          - text: Loading…
+        - generic [ref=e94]:
+          - heading "Sizes" [level=2] [ref=e96]
+          - text: Loading…
+  - contentinfo [ref=e97]:
+    - generic [ref=e98]:
+      - link "Home" [ref=e99] [cursor=pointer]:
+        - /url: https://www.goatcounter.com
+      - text: "|"
+      - link "Contact" [ref=e100] [cursor=pointer]:
+        - /url: /contact
+      - text: "|"
+      - link "Documentation" [ref=e101] [cursor=pointer]:
+        - /url: /help
+      - text: "|"
+      - link "Contribute" [ref=e102] [cursor=pointer]:
+        - /url: /contribute
+    - generic [ref=e103]:
+      - link "Source code" [ref=e104] [cursor=pointer]:
+        - /url: https://github.com/arp242/goatcounter
+      - text: "|"
+      - link "NLnet NGI0" [ref=e105] [cursor=pointer]:
+        - /url: https://nlnet.nl/project/GoatCounter/
+      - text: "|"
+      - link "GitHub sponsors" [ref=e106] [cursor=pointer]:
+        - /url: https://github.com/sponsors/arp242
+      - text: "|"
+      - link "Product Hunt" [ref=e107] [cursor=pointer]:
+        - /url: https://www.producthunt.com/posts/goatcounter
+      - text: "|"
+      - link "AlternativeTo" [ref=e108] [cursor=pointer]:
+        - /url: https://alternativeto.net/software/goatcounter/about

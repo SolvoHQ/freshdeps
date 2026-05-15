@@ -22,19 +22,35 @@ dead.
 It calls `${FRESHDEPS_API_BASE}/api/verdict` (default
 `https://freshdeps.vercel.app`).
 
-## Install (Claude Desktop / Cursor)
+## Install (Claude Desktop / Cursor) — zero account, one paste
 
-Once published:
+No npm account, no clone, no build. Paste this into your MCP config:
 
 ```json
 {
   "mcpServers": {
-    "freshdeps": { "command": "npx", "args": ["-y", "freshdeps-mcp"] }
+    "freshdeps": {
+      "command": "npx",
+      "args": ["-y", "github:SolvoHQ/freshdeps-mcp"]
+    }
   }
 }
 ```
 
-From this repo (before publish):
+- **Claude Desktop**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+  (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows), then
+  restart Claude Desktop.
+- **Cursor**: Settings → MCP → add the same block (or edit
+  `~/.cursor/mcp.json`).
+
+Requires Node ≥ 20 on PATH. `npx` fetches
+[`github:SolvoHQ/freshdeps-mcp`](https://github.com/SolvoHQ/freshdeps-mcp),
+installs deps, and runs the server over stdio — verified end-to-end from a
+clean machine.
+
+### Develop locally (secondary)
+
+To run from a checkout of this repo instead:
 
 ```json
 {

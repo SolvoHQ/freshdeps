@@ -39,20 +39,31 @@ npm run verify       # prints live verdicts for 4 sample packages
 ## MCP — install in Claude / Cursor
 
 The MCP server is in [`mcp/`](./mcp). It exposes one tool,
-`check_dependency_freshness`. Once published to npm as `freshdeps-mcp`:
+`check_dependency_freshness`. **Zero account, one paste** — no npm publish,
+no clone, no build. Add this to your MCP config:
 
 ```json
 {
   "mcpServers": {
     "freshdeps": {
       "command": "npx",
-      "args": ["-y", "freshdeps-mcp"]
+      "args": ["-y", "github:SolvoHQ/freshdeps-mcp"]
     }
   }
 }
 ```
 
-Until then, run it straight from this repo:
+- **Claude Desktop**: edit `claude_desktop_config.json`
+  (`~/Library/Application Support/Claude/` on macOS,
+  `%APPDATA%\Claude\` on Windows), then restart the app.
+- **Cursor**: Settings → MCP, or edit `~/.cursor/mcp.json`.
+
+Requires Node ≥ 20. `npx` fetches
+[`github:SolvoHQ/freshdeps-mcp`](https://github.com/SolvoHQ/freshdeps-mcp),
+installs deps, and runs it over stdio — verified end-to-end from a clean
+machine.
+
+To develop against a local checkout instead:
 
 ```json
 {
