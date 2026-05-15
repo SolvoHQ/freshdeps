@@ -98,6 +98,101 @@ const ALTERNATIVES: Record<string, Alternative> = {
     reason: "Node 18+ ships a native --watch mode for most dev-restart needs.",
     migration: "node --watch app.js  // replaces 'nodemon app.js' on Node 18+",
   },
+  "npm:enzyme": {
+    name: "@testing-library/react",
+    reason:
+      "enzyme is abandoned (last release 2019; no React 18/19 adapter ever shipped).",
+    migration:
+      "npm rm enzyme enzyme-adapter-react-16 && npm i -D @testing-library/react; replace shallow(<C/>) / wrapper.find('.x') with render(<C/>) + screen.getByRole/getByText",
+  },
+  "npm:react-scripts": {
+    name: "Vite",
+    reason:
+      "Create React App was officially deprecated by the React team (Feb 2025); react-scripts has no active maintainers.",
+    migration:
+      "npm rm react-scripts && npm i -D vite @vitejs/plugin-react; move index.html to project root, add vite.config.js, scripts: dev='vite', build='vite build'",
+  },
+  "npm:node-uuid": {
+    name: "uuid",
+    reason: "node-uuid is deprecated; the registry redirects you to `uuid`.",
+    migration:
+      "npm rm node-uuid && npm i uuid; const { v4: uuidv4 } = require('uuid'); uuidv4()  // replaces require('node-uuid').v4()",
+  },
+  "npm:request-promise": {
+    name: "got",
+    reason:
+      "request-promise is deprecated (it extends the dead request package).",
+    migration:
+      "npm rm request-promise && npm i got; const got = require('got'); const body = await got(url).text()  // replaces rp(url)",
+  },
+  "npm:request-promise-native": {
+    name: "got",
+    reason:
+      "request-promise-native is deprecated (it extends the dead request package).",
+    migration:
+      "npm rm request-promise-native && npm i got; const got = require('got'); const json = await got(url).json()  // replaces rp(url)",
+  },
+  "npm:jade": {
+    name: "pug",
+    reason: "jade was renamed to pug; the jade package is deprecated.",
+    migration:
+      "npm rm jade && npm i pug; require('pug').renderFile(path, locals)  // identical template syntax, replaces require('jade')",
+  },
+  "npm:coffee-script": {
+    name: "coffeescript",
+    reason:
+      "the npm package was renamed to `coffeescript` (no hyphen); coffee-script is deprecated.",
+    migration:
+      "npm rm coffee-script && npm i coffeescript; require('coffeescript/register')  // same API, new package name",
+  },
+  "npm:phantomjs-prebuilt": {
+    name: "playwright",
+    reason:
+      "phantomjs-prebuilt is deprecated; PhantomJS development is suspended.",
+    migration:
+      "npm rm phantomjs-prebuilt && npm i -D playwright; const { chromium } = require('playwright'); const browser = await chromium.launch()  // headless Chromium replaces PhantomJS",
+  },
+  "npm:protractor": {
+    name: "@playwright/test",
+    reason:
+      "Protractor is deprecated and reached end-of-life (Summer 2023).",
+    migration:
+      "npm rm protractor && npm i -D @playwright/test; rewrite element(by.css('x')) as page.locator('x'); npx playwright test",
+  },
+  "npm:karma": {
+    name: "vitest",
+    reason:
+      "Karma is deprecated (Angular 20 deprecated it; removal in Angular 22).",
+    migration:
+      "npm rm karma karma-* && npm i -D vitest jsdom; replace karma.conf.js with vitest config (environment: 'jsdom'); npx vitest",
+  },
+  "npm:q": {
+    name: "native Promises / async-await",
+    reason: "the q package is deprecated; native Promises cover its API.",
+    migration:
+      "Q.defer() -> new Promise((resolve,reject)=>{}); Q.all(x) -> Promise.all(x); Q(v) -> Promise.resolve(v); no dependency needed",
+  },
+  "npm:bluebird": {
+    name: "native Promises",
+    reason:
+      "bluebird is unmaintained (last release 2019); native V8 Promises are now faster and standard.",
+    migration:
+      "Promise.promisify(fn) -> require('util').promisify(fn); Promise.map(arr,fn) -> Promise.all(arr.map(fn)); drop the dependency",
+  },
+  "npm:babel-preset-es2015": {
+    name: "@babel/preset-env",
+    reason:
+      "babel-preset-es2015 is deprecated; @babel/preset-env supersedes the year-based presets.",
+    migration:
+      "npm rm babel-preset-es2015 && npm i -D @babel/preset-env; in .babelrc replace presets:['es2015'] with presets:['@babel/preset-env']",
+  },
+  "npm:eslint-loader": {
+    name: "eslint-webpack-plugin",
+    reason:
+      "eslint-loader is deprecated in favor of eslint-webpack-plugin.",
+    migration:
+      "npm rm eslint-loader && npm i -D eslint-webpack-plugin; remove the eslint-loader rule, add new ESLintPlugin() to webpack plugins[]",
+  },
 
   // ---- pypi ----
   "pypi:nose": {
@@ -134,6 +229,89 @@ const ALTERNATIVES: Record<string, Alternative> = {
     reason: "authlib is more actively maintained for modern OAuth flows.",
     migration:
       "pip install authlib; use authlib.integrations.requests_client.OAuth2Session",
+  },
+  "pypi:pycrypto": {
+    name: "pycryptodome",
+    reason:
+      "pycrypto is dead (last release 2014) and has unpatched CVEs; pycryptodome is the maintained drop-in.",
+    migration:
+      "pip uninstall pycrypto && pip install pycryptodome; same `from Crypto.Cipher import AES` imports work unchanged",
+  },
+  "pypi:mysql-python": {
+    name: "mysqlclient",
+    reason:
+      "MySQL-python is dead (Python 2 only, last release 2014); mysqlclient is the maintained fork.",
+    migration:
+      "pip install mysqlclient; import MySQLdb still works (mysqlclient keeps the MySQLdb module name)",
+  },
+  "pypi:pil": {
+    name: "Pillow",
+    reason:
+      "PIL is dead (last release 2009, Python 2 only); Pillow is the maintained fork.",
+    migration:
+      "pip uninstall PIL && pip install Pillow; `from PIL import Image` keeps working (Pillow ships the PIL namespace)",
+  },
+  "pypi:beautifulsoup": {
+    name: "beautifulsoup4",
+    reason:
+      "the bare `BeautifulSoup` package is BeautifulSoup 3 — unmaintained; use beautifulsoup4.",
+    migration:
+      "pip uninstall BeautifulSoup && pip install beautifulsoup4; `from bs4 import BeautifulSoup` (was `from BeautifulSoup import BeautifulSoup`)",
+  },
+  "pypi:sklearn": {
+    name: "scikit-learn",
+    reason:
+      "the `sklearn` PyPI package is a deprecated shim (it now errors on install); install scikit-learn.",
+    migration:
+      "pip uninstall sklearn && pip install scikit-learn; the import `import sklearn` is unchanged — only the install name differs",
+  },
+  "pypi:enum34": {
+    name: "enum (stdlib)",
+    reason:
+      "enum34 is a Python 3.4 backport; enum has been in the stdlib since Python 3.4.",
+    migration:
+      "pip uninstall enum34; `from enum import Enum` from the standard library — no dependency needed on Python 3",
+  },
+  "pypi:futures": {
+    name: "concurrent.futures (stdlib)",
+    reason:
+      "the `futures` package is a Python 2 backport; concurrent.futures is stdlib on Python 3.2+.",
+    migration:
+      "pip uninstall futures; `from concurrent.futures import ThreadPoolExecutor` from the stdlib — no dependency needed",
+  },
+  "pypi:scikits-learn": {
+    name: "scikit-learn",
+    reason:
+      "scikits.learn was renamed to scikit-learn years ago (last release 2011).",
+    migration:
+      "pip uninstall scikits.learn && pip install scikit-learn; `from sklearn import ...` is the import in both",
+  },
+  "pypi:fabric3": {
+    name: "fabric",
+    reason:
+      "fabric3 was a stop-gap Py3 fork; modern fabric (2.x+) supports Python 3 natively.",
+    migration:
+      "pip uninstall fabric3 && pip install fabric; rewrite fabfile run()/local() using the Connection/task API of Fabric 2+",
+  },
+  "pypi:pathlib": {
+    name: "pathlib (stdlib)",
+    reason:
+      "the PyPI pathlib backport is obsolete and breaks modern builds; pathlib is stdlib since Python 3.4.",
+    migration:
+      "pip uninstall pathlib; `from pathlib import Path` from the standard library — remove it from requirements entirely",
+  },
+  "pypi:pep8": {
+    name: "pycodestyle",
+    reason: "pep8 was renamed to pycodestyle; the pep8 package is deprecated.",
+    migration:
+      "pip uninstall pep8 && pip install pycodestyle; run `pycodestyle <path>` (same checks, new command name)",
+  },
+  "pypi:nose-parameterized": {
+    name: "parameterized",
+    reason:
+      "nose-parameterized was renamed to `parameterized` and is deprecated.",
+    migration:
+      "pip uninstall nose-parameterized && pip install parameterized; `from parameterized import parameterized` (was `from nose_parameterized import parameterized`)",
   },
 };
 

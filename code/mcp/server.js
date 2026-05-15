@@ -43,6 +43,18 @@ function renderText(v) {
       `⚠ PARTIAL: some upstream feeds failed — treat this verdict with caution.`,
     );
   }
+  const alt = v.suggestedAlternative;
+  // LEAD WITH THE FIX: an LLM agent reads top-down — the first thing it sees
+  // must answer "what do I do", not a wall of risk metrics. When we have a
+  // hand-verified migration recipe, surface it immediately after the header.
+  if (alt && alt.migration) {
+    lines.push("");
+    lines.push(`➜ FIX: replace with ${alt.name}`);
+    lines.push(`  ${alt.migration}`);
+    lines.push(`  Why: ${alt.reason}`);
+    lines.push("");
+    lines.push("Evidence:");
+  }
   if (v.latestVersion) lines.push(`Latest version: ${v.latestVersion}`);
   if (v.lastReleaseAgeDays !== null && v.lastReleaseAgeDays !== undefined)
     lines.push(`Last release: ~${v.lastReleaseAgeDays} days ago`);
@@ -55,13 +67,11 @@ function renderText(v) {
   if (v.vulnCount === null || v.vulnCount === undefined)
     lines.push(`Known CVEs (OSV): unknown (feed unavailable)`);
   else lines.push(`Known CVEs (OSV): ${v.vulnCount}`);
-  if (v.suggestedAlternative) {
-    lines.push(
-      `Suggested alternative: ${v.suggestedAlternative.name} — ${v.suggestedAlternative.reason}`,
-    );
-    if (v.suggestedAlternative.migration)
-      lines.push(`Migration: ${v.suggestedAlternative.migration}`);
-  } else lines.push(`Suggested alternative: none (no hand-verified replacement).`);
+  if (alt && !alt.migration) {
+    lines.push(`Suggested alternative: ${alt.name} — ${alt.reason}`);
+  } else if (!alt) {
+    lines.push(`Suggested alternative: none (no hand-verified replacement).`);
+  }
   return lines.join("\n");
 }
 
@@ -75,13 +85,14 @@ server.registerTool(
   {
     title: "Check dependency freshness",
     description:
-      "Live health check for an npm or PyPI package. Returns whether it is " +
-      "active/slowing/stale/abandoned, latest version, deprecation/yank " +
-      "status, known CVE count, and a hand-verified alternative if the " +
-      "package is dead — including a concrete migration recipe " +
-      "(replacement + before→after code) for dead packages. " +
-      "Call this BEFORE recommending a dependency — model " +
-      "training data is months stale and cannot know current package state.",
+      "The abandoned-dependency escape hatch. For an npm or PyPI package " +
+      "this returns a live freshness verdict AND — when the package is " +
+      "dead/deprecated/abandoned — the concrete hand-verified migration " +
+      "recipe to fix it: the exact replacement package plus the " +
+      "before→after code change to apply, not merely a risk score. " +
+      "Call this BEFORE recommending or writing code against ANY npm/PyPI " +
+      "dependency: model training data is months stale, so the package " +
+      "you are about to use may be dead and the fix is not in your weights.",
     inputSchema: {
       ecosystem: z.enum(["npm", "pypi"]),
       package: z.string().min(1).describe("package name, e.g. 'request'"),
