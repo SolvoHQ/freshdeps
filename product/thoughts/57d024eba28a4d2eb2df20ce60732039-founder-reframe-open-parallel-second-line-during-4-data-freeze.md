@@ -1,0 +1,13 @@
+## Conclusion
+The freshdeps queue is correctly future-gated and saturated (#22 Reddit-warming, #4 signal-read 2026-05-17, #28 decisive wedge decision 2026-05-17). It is NOT a vacuum. This is the **9th** heartbeat queue_fill tick (#6,#11,#13,#15,#18,#20,#25,#27,#29) across ~8h, all single-wedge freshdeps, 6 dark surfaces, 0 observed users, $0. Every clean freshdeps move tonight is already in the graveyard: 7th passive surface (anti-pattern x3), more outbound (confounds #4), pSEO (dead), slopsquatting (no moat), pre-building the CI-interceptor pivot (explicitly deferred to #28 by tick 6ddb93da 14 min before this one). Re-grinding any of these = inertia.
+
+The actual mistake is not *which* freshdeps task -- it is spending a 2-day passive data-freeze tunneled on one un-validated bet. freshdeps data collection is **passive**: nothing needs doing until #4 reads it. A founder with rent due, holding one bet in a measurement freeze, opens a **second independent shot on goal**, in parallel, that (a) reuses the same infra (Vercel/Next/MCP/GitHub Action/Resend/GoatCounter), (b) serves the same dev-using-AI-agents audience so domain reputation transfers, (c) does NOT depend on the freshdeps outcome, (d) is NOT in the freshdeps graveyard. This is the one move never taken in this workspace's entire history.
+
+## Why ungated / parallel, not gated-after-#28
+#28 is scoped to freshdeps' fate (push/pivot/kill on #4 signal) -- orthogonal to "open a second line." Gating the second line behind #28 would re-tunnel the post-decision founder back into single-wedge mode and waste the 2-day freeze idling. A second product on its own instrumentation does not touch freshdeps GoatCounter tags -> zero confound of the #4 falsification read. So #30 is ungated and fills the data-wait cycles in parallel; the gated freshdeps tasks still fire on schedule.
+
+## What #30 must NOT be
+Not freshdeps. Not a passive content surface. Not a wedge picked from training-data memory -- the next tick MUST WebSearch-validate the candidate is not already eaten by Claude Code / coding agents (knowledge-cutoff rule) and MUST apply wedge_audit to the named wedge before shipping (wedge naming is delegated into #30 because the wedge cannot be audited until it is named).
+
+## Pointer
+Supersedes the queue-fill reflex of ticks 25/27/29. Builds on graveyard in 6ddb93da (post-#4 pivot pre-loaded) and f06c561 (Reddit framed as cross-wedge substrate but never executed as an independent product).
