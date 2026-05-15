@@ -1,0 +1,162 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Help" [ref=e4] [cursor=pointer]:
+        - /url: /help
+      - text: "|"
+      - link "Settings" [ref=e5] [cursor=pointer]:
+        - /url: /settings
+      - text: "|"
+      - link "agent+goatcounter@" [ref=e6] [cursor=pointer]:
+        - /url: /user
+      - text: "|"
+      - button "Sign out" [ref=e8] [cursor=pointer]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - text: Please verify your email by clicking the link sent to agent+goatcounter@foundagent.net.
+      - link "(Why?)" [ref=e11] [cursor=pointer]:
+        - /url: https://www.goatcounter.com/help/faq#verify-email
+      - text: Change the email address in the
+      - link "settings" [ref=e12] [cursor=pointer]:
+        - /url: /user
+      - text: .
+      - generic [ref=e13]:
+        - button "Resend email" [ref=e14] [cursor=pointer]
+        - text: .
+    - generic [ref=e15]:
+      - paragraph [ref=e16]:
+        - strong [ref=e17]: No data received
+        - text: – GoatCounter hasn’t received any data yet.
+        - text: "Getting started is pretty easy, just add the following JavaScript anywhere on the page:"
+      - generic [ref=e18]: <script data-goatcounter="https://freshdeps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+      - paragraph [ref=e19]: Check if your adblocker is blocking GoatCounter if you don’t see any pageviews (goatcounter.com and/or gc.zgo.at domain).
+      - paragraph [ref=e20]:
+        - text: This message will disappear once we receive data; see
+        - link "Site code" [ref=e21] [cursor=pointer]:
+          - /url: /help
+        - text: in the top menu for further documentation and ready-made integrations.
+    - generic [ref=e22]:
+      - button "Submit"
+      - generic [ref=e23]: ⚙️
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - textbox "First day to display" [ref=e27]: 2026-05-08
+            - text: –
+            - textbox "Last day to display" [ref=e28]: 2026-05-15
+          - generic [ref=e30]:
+            - text: Last
+            - button "day" [ref=e31] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e32] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e33] [cursor=pointer]
+            - text: ·
+            - button "quarter" [ref=e34] [cursor=pointer]
+            - text: ·
+            - button "half year" [ref=e35] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e36] [cursor=pointer]
+        - generic [ref=e37]:
+          - textbox "Filter paths" [ref=e41]
+          - generic [ref=e42]:
+            - text: "View by:"
+            - button "hour" [ref=e43] [cursor=pointer]
+            - text: ·
+            - button "day" [ref=e44] [cursor=pointer]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - text: ←︎ back
+          - generic [ref=e47]:
+            - button "day" [ref=e48] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e49] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e50] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e51] [cursor=pointer]
+        - generic [ref=e52]: 1 week ago–Today
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - button "day" [ref=e55] [cursor=pointer]
+            - text: ·
+            - button "week" [ref=e56] [cursor=pointer]
+            - text: ·
+            - button "month" [ref=e57] [cursor=pointer]
+            - text: ·
+            - button "year" [ref=e58] [cursor=pointer]
+          - text: forward →︎
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - heading "Pages 0 out of 0 visits shown" [level=2] [ref=e62]:
+          - text: Pages
+          - generic [ref=e63]: 0 out of 0 visits shown
+        - table [ref=e64]:
+          - rowgroup [ref=e65]:
+            - row "Nothing to display" [ref=e66]:
+              - cell "Nothing to display" [ref=e67]:
+                - emphasis [ref=e68]: Nothing to display
+      - generic [ref=e69]:
+        - heading "Totals 0 visits" [level=2] [ref=e71]:
+          - text: Totals
+          - generic [ref=e72]: 0 visits
+        - table [ref=e73]:
+          - rowgroup [ref=e74]:
+            - row "Loading…" [ref=e75]:
+              - cell "Loading…" [ref=e76]:
+                - generic [ref=e77]: Loading…
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - heading "Top referrers" [level=2] [ref=e81]
+          - text: Loading…
+        - generic [ref=e82]:
+          - heading "Campaigns" [level=2] [ref=e84]
+          - text: Loading…
+        - generic [ref=e85]:
+          - heading "Browsers" [level=2] [ref=e87]
+          - text: Loading…
+        - generic [ref=e88]:
+          - heading "Systems" [level=2] [ref=e90]
+          - text: Loading…
+        - generic [ref=e91]:
+          - heading "Locations" [level=2] [ref=e93]
+          - text: Loading…
+        - generic [ref=e94]:
+          - heading "Languages" [level=2] [ref=e96]
+          - generic [ref=e97]:
+            - text: Collecting this information is currently
+            - link "disabled in settings" [ref=e98] [cursor=pointer]:
+              - /url: /settings/main#section-collect
+            - text: .
+          - text: Loading…
+        - generic [ref=e99]:
+          - heading "Sizes" [level=2] [ref=e101]
+          - text: Loading…
+  - contentinfo [ref=e102]:
+    - generic [ref=e103]:
+      - link "Home" [ref=e104] [cursor=pointer]:
+        - /url: https://www.goatcounter.com
+      - text: "|"
+      - link "Contact" [ref=e105] [cursor=pointer]:
+        - /url: /contact
+      - text: "|"
+      - link "Documentation" [ref=e106] [cursor=pointer]:
+        - /url: /help
+      - text: "|"
+      - link "Contribute" [ref=e107] [cursor=pointer]:
+        - /url: /contribute
+    - generic [ref=e108]:
+      - link "Source code" [ref=e109] [cursor=pointer]:
+        - /url: https://github.com/arp242/goatcounter
+      - text: "|"
+      - link "NLnet NGI0" [ref=e110] [cursor=pointer]:
+        - /url: https://nlnet.nl/project/GoatCounter/
+      - text: "|"
+      - link "GitHub sponsors" [ref=e111] [cursor=pointer]:
+        - /url: https://github.com/sponsors/arp242
+      - text: "|"
+      - link "Product Hunt" [ref=e112] [cursor=pointer]:
+        - /url: https://www.producthunt.com/posts/goatcounter
+      - text: "|"
+      - link "AlternativeTo" [ref=e113] [cursor=pointer]:
+        - /url: https://alternativeto.net/software/goatcounter/about

@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - strong [ref=e3]:
+      - link "←︎ Dashboard" [ref=e4] [cursor=pointer]:
+        - /url: /
+  - generic [ref=e5]:
+    - heading "Sign up for GoatCounter" [level=1] [ref=e6]
+    - paragraph [ref=e7]:
+      - text: You can use an account on any number of sites/domains; see
+      - emphasis [ref=e8]: Settings
+      - text: →
+      - emphasis [ref=e9]: sites
+      - text: for separating them out.
+    - generic [ref=e11]:
+      - group [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - generic [ref=e15]: Account name
+            - textbox "Account name" [ref=e16]
+            - generic [ref=e17]:
+              - text: You will access your account at https://
+              - emphasis [ref=e18]: "[account-name]"
+              - text: .goatcounter.com.
+          - generic [ref=e19]:
+            - generic [ref=e20]: Site domain
+            - textbox "Site domain" [ref=e21]
+            - text: Your site’s domain, used for display/linking; optional.
+      - group [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: Email address
+            - textbox "Email address" [ref=e26]
+            - text: For password resets, important announcements, invoices.
+          - generic [ref=e27]:
+            - generic [ref=e28]: Password
+            - textbox "Password" [ref=e29]
+            - text: Needs at least 8 characters.
+      - group [ref=e30]:
+        - generic [ref=e32]:
+          - generic [ref=e33]: Fill in 9 here
+          - textbox "Fill in 9 here" [ref=e34]
+          - text: Just a little verification that you’re human :-)
+      - button "Sign up" [ref=e35] [cursor=pointer]
+  - contentinfo [ref=e36]:
+    - generic [ref=e37]:
+      - link "Home" [ref=e38] [cursor=pointer]:
+        - /url: https://www.goatcounter.com
+      - text: "|"
+      - link "Contact" [ref=e39] [cursor=pointer]:
+        - /url: /contact
+      - text: "|"
+      - link "Documentation" [ref=e40] [cursor=pointer]:
+        - /url: /help
+      - text: "|"
+      - link "Contribute" [ref=e41] [cursor=pointer]:
+        - /url: /contribute
+    - generic [ref=e42]:
+      - link "Source code" [ref=e43] [cursor=pointer]:
+        - /url: https://github.com/arp242/goatcounter
+      - text: "|"
+      - link "NLnet NGI0" [ref=e44] [cursor=pointer]:
+        - /url: https://nlnet.nl/project/GoatCounter/
+      - text: "|"
+      - link "GitHub sponsors" [ref=e45] [cursor=pointer]:
+        - /url: https://github.com/sponsors/arp242
+      - text: "|"
+      - link "Product Hunt" [ref=e46] [cursor=pointer]:
+        - /url: https://www.producthunt.com/posts/goatcounter
+      - text: "|"
+      - link "AlternativeTo" [ref=e47] [cursor=pointer]:
+        - /url: https://alternativeto.net/software/goatcounter/about
