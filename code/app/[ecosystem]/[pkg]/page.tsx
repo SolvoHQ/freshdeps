@@ -218,6 +218,14 @@ export default async function PackagePage({
             <div className="lbl">Suggested alternative</div>
             <div className="name">{v.suggestedAlternative.name}</div>
             <div className="reason">{v.suggestedAlternative.reason}</div>
+            {v.suggestedAlternative.migration ? (
+              <>
+                <div className="lbl" style={{ marginTop: 16 }}>
+                  Migration
+                </div>
+                <pre className="snippet">{v.suggestedAlternative.migration}</pre>
+              </>
+            ) : null}
           </div>
         ) : (
           <div className="alt none">

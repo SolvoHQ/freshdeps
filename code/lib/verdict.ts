@@ -34,7 +34,12 @@ export interface Verdict {
   github: GitHubInfo | null;
   vulnCount: number | null;
   maintenance: MaintenanceSignal;
-  suggestedAlternative: { name: string; reason: string } | null;
+  suggestedAlternative: {
+    name: string;
+    reason: string;
+    /** curated migration recipe; present only for hand-verified entries */
+    migration?: string;
+  } | null;
   checkedAt: string;
   /** which upstreams answered successfully (false = failed/timed out/not attempted). */
   sources: { registry: boolean; github: boolean; osv: boolean };

@@ -55,11 +55,13 @@ function renderText(v) {
   if (v.vulnCount === null || v.vulnCount === undefined)
     lines.push(`Known CVEs (OSV): unknown (feed unavailable)`);
   else lines.push(`Known CVEs (OSV): ${v.vulnCount}`);
-  if (v.suggestedAlternative)
+  if (v.suggestedAlternative) {
     lines.push(
       `Suggested alternative: ${v.suggestedAlternative.name} — ${v.suggestedAlternative.reason}`,
     );
-  else lines.push(`Suggested alternative: none (no hand-verified replacement).`);
+    if (v.suggestedAlternative.migration)
+      lines.push(`Migration: ${v.suggestedAlternative.migration}`);
+  } else lines.push(`Suggested alternative: none (no hand-verified replacement).`);
   return lines.join("\n");
 }
 
@@ -76,7 +78,9 @@ server.registerTool(
       "Live health check for an npm or PyPI package. Returns whether it is " +
       "active/slowing/stale/abandoned, latest version, deprecation/yank " +
       "status, known CVE count, and a hand-verified alternative if the " +
-      "package is dead. Call this BEFORE recommending a dependency — model " +
+      "package is dead — including a concrete migration recipe " +
+      "(replacement + before→after code) for dead packages. " +
+      "Call this BEFORE recommending a dependency — model " +
       "training data is months stale and cannot know current package state.",
     inputSchema: {
       ecosystem: z.enum(["npm", "pypi"]),
