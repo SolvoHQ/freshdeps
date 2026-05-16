@@ -230,20 +230,35 @@ never custodies and cannot freeze them.
   `https://api.nowpayments.io`. Set to `https://api-sandbox.nowpayments.io`
   (with the sandbox key in `NOWPAYMENTS_API_KEY`) to test against sandbox.
 
-### Sandbox-verified status / pointing at production
+### Verified status (PRODUCTION) + two documented walls
 
-Verification method: a full payment lifecycle
-(`waiting → confirming → finished`) is driven against
-`api-sandbox.nowpayments.io` using the NOWPayments sandbox `case` emulation,
-which is byte-identical to the production API/auth/IPN contract but requires
-zero funds. Raw JSON evidence (status transitions) is captured at
-`code/data/nowpayments-sandbox-testtx-evidence.json` once the sandbox key is
-provisioned; that file + the provisioning report are the verified record. A mainnet funded
-transaction is a **documented, accepted limitation** at the pre-revenue
-stage (the workspace holds zero crypto funds and has no human/bank — see
-Wall-1 in product/thoughts), **not a silent gap**. To go live: set
-`NOWPAYMENTS_API_KEY` to the production key and leave `NOWPAYMENTS_BASE_URL`
-unset (defaults to prod). No code change required.
+The NOWPayments rail is **provisioned and PRODUCTION receive-side
+verified** against `api.nowpayments.io` with a real email-only no-KYC key
+(`NOWPAYMENTS_API_KEY` in `.solvo/secrets.env`): `GET /v1/status` OK, the
+API key authenticates, a **real payable invoice** was created
+(`https://nowpayments.io/payment/?iid=...`), and a **real payment object**
+was created and its status endpoint polled. The store outcome wallet is
+`SOLVO_PAYOUT_WALLET_ADDRESS` (non-custodial forwarding). IPN secret is
+provisioned (`NOWPAYMENTS_IPN_SECRET`). Raw JSON evidence:
+`code/data/nowpayments-sandbox-testtx-evidence.json`.
+
+Two documented walls keep verification short of a terminal `finished`
+transition — neither is a silent gap:
+
+1. **Sandbox `case` emulation unavailable** — NOWPayments' *own* sandbox
+   signup is broken: the sandbox reCAPTCHA site key is rejected by Google
+   ("Invalid site key"), unsolvable by a CAPTCHA service, and the sandbox
+   `/register` backend strictly verifies the token server-side. No
+   agent-operable path yields a sandbox account, so the funds-free
+   `waiting → confirming → finished` emulation cannot be run.
+2. **Mainnet funded tx is Wall-1** — advancing a production payment to
+   `finished` needs real on-chain funds; the workspace holds zero crypto
+   and has no human/bank. Accepted pre-revenue limitation.
+
+`'waiting'` is the correct state for the unfunded test payment; everything
+up to the fund receipt itself is verified. Production is already the
+default (`NOWPAYMENTS_BASE_URL` unset → `https://api.nowpayments.io`); no
+code change is needed to route real money.
 
 ### Accepted ambiguity
 

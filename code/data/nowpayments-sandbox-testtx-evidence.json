@@ -1,0 +1,122 @@
+{
+  "provider": "NOWPayments",
+  "filename_note": "File name retains the task-specified 'sandbox' slug; actual verification is PRODUCTION receive-side (api.nowpayments.io). See walls below.",
+  "captured_at_utc": "2026-05-16T06:02:08.678003Z",
+  "account": {
+    "email": "agent+nowpayments@foundagent.net",
+    "id": "5954296242",
+    "is_custody": true,
+    "kyc_required": false,
+    "note": "Email-only no-KYC confirmed: profile.kyc_info.required=false. KYC (Sumsub) is optional, only for fiat on/off-ramp."
+  },
+  "payout_wallet": {
+    "address": "0x51BBec60d1eB41c52642257060fB52C77dba3cA9",
+    "base_currency": "USDTERC20",
+    "note": "Set as the NOWPayments store outcome wallet (non-custodial forwarding target) AND is SOLVO_PAYOUT_WALLET_ADDRESS in .solvo/secrets.env"
+  },
+  "walls": {
+    "sandbox_unbreakable": "NOWPayments SANDBOX account signup is walled by a NOWPayments-side reCAPTCHA misconfiguration: sandbox site key 6LedO9AeAAAAAIYvLkNVtGfgDAzFgyxewgatAWOe is rejected by Google ('ERROR for site owner: Invalid site key'); 2captcha returns ERROR_CAPTCHA_UNSOLVABLE; the sandbox /register backend verifies the captcha token server-side (dummy/null and a valid production-key token both rejected with 500/'Request failed with status code 400'). Three independent confirmations. Therefore the sandbox `case` full-lifecycle (waiting->confirming->finished) emulation is NOT obtainable by any agent-operable path.",
+    "mainnet_funds": "A production mainnet funded transaction would move a payment to finished, but is blocked by documented Wall-1 (workspace holds zero crypto funds, no human/bank). Accepted pre-revenue limitation, not a silent gap."
+  },
+  "verification": "PRODUCTION receive-side API verified to the maximal funds-free degree: public status OK, API key authenticates, a REAL payable invoice was created, a REAL payment object was created and its status endpoint polled. The only unverified transition is the on-chain fund receipt itself (the two walls above).",
+  "steps": [
+    {
+      "step": "GET /v1/status (public)",
+      "http": 200,
+      "resp": {
+        "message": "OK"
+      }
+    },
+    {
+      "step": "GET /v1/currencies (authed \u2014 proves API key 5P8C...97E4 works)",
+      "http": 200,
+      "resp": "200 OK, currencies list returned"
+    },
+    {
+      "step": "POST /v1/invoice",
+      "http": 200,
+      "resp": {
+        "id": "6032277419",
+        "token_id": "6012106724",
+        "order_id": "solvo-rail-test-2",
+        "order_description": "Solvo payment rail provisioning test",
+        "price_amount": "25",
+        "price_currency": "USD",
+        "pay_currency": "USDTTRC20",
+        "ipn_callback_url": null,
+        "invoice_url": "https://nowpayments.io/payment/?iid=6032277419",
+        "success_url": null,
+        "cancel_url": null,
+        "customer_email": null,
+        "partially_paid_url": null,
+        "payout_currency": null,
+        "created_at": "2026-05-16T06:02:50.244Z",
+        "updated_at": "2026-05-16T06:02:50.244Z",
+        "is_fixed_rate": false,
+        "is_fee_paid_by_user": false,
+        "source": null,
+        "collect_user_data": false
+      }
+    },
+    {
+      "step": "POST /v1/payment (price_amount 25 usd -> usdttrc20)",
+      "http": 201,
+      "resp": {
+        "payment_id": "4427106208",
+        "payment_status": "waiting",
+        "pay_address": "TByK1XprQpoq99BLx84ELwfmfVTxNQW1gV",
+        "price_amount": 25,
+        "price_currency": "usd",
+        "pay_amount": 24.984241,
+        "amount_received": 24.678024,
+        "pay_currency": "usdttrc20",
+        "order_id": "solvo-rail-test-2",
+        "order_description": "Solvo rail test payment",
+        "payin_extra_id": null,
+        "ipn_callback_url": null,
+        "customer_email": null,
+        "created_at": "2026-05-16T05:59:56.929Z",
+        "updated_at": "2026-05-16T05:59:56.929Z",
+        "purchase_id": "6414659966",
+        "smart_contract": null,
+        "network": "trx",
+        "network_precision": null,
+        "time_limit": null,
+        "burning_percent": null,
+        "expiration_estimate_date": "2026-05-16T06:19:56.929Z",
+        "is_fixed_rate": false,
+        "is_fee_paid_by_user": false,
+        "valid_until": "2026-05-23T05:59:56.929Z",
+        "type": "crypto2crypto",
+        "product": "api",
+        "origin_ip": "185.36.193.39"
+      }
+    },
+    {
+      "step": "GET /v1/payment/{id} polled x3",
+      "resp_polls": [
+        {
+          "http": 200,
+          "payment_status": "waiting",
+          "updated_at": "2026-05-16T05:59:56.929Z"
+        },
+        {
+          "http": 200,
+          "payment_status": "waiting",
+          "updated_at": "2026-05-16T05:59:56.929Z"
+        },
+        {
+          "http": 200,
+          "payment_status": "waiting",
+          "updated_at": "2026-05-16T05:59:56.929Z"
+        }
+      ]
+    }
+  ],
+  "invoice_id": "6032277419",
+  "invoice_url": "https://nowpayments.io/payment/?iid=6032277419",
+  "payment_id": "4427106208",
+  "pay_address": "TByK1XprQpoq99BLx84ELwfmfVTxNQW1gV",
+  "terminal_status_reached": "waiting",
+  "terminal_status_explanation": "'waiting' is the correct terminal state for an unfunded payment object; advancing to confirming/finished requires on-chain funds (Wall-1) or the sandbox case emulation (NOWPayments-side broken, see walls.sandbox_unbreakable)."
+}
