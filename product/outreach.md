@@ -267,6 +267,14 @@ spam-filter). Created tick `942b5950e9884ea08a88140c85f3eeb8`, 2026-05-15.
   3. r/node npm install-scripts RFC — drafted substantive comment,
      **swallowed by the throttle** (3 attempts, never landed); leave it,
      re-target a different thread next tick.
+  4. r/node "How to handle DDL rollbacks when a migration fails midway?"
+     (forward-only migration / idempotent-up war story, honest disagree
+     with the "just use Postgres" consensus, no promo) — verified live
+     2026-05-16T17:36Z, profile count 3→4 —
+     `/r/node/comments/1tbxmhg/how_to_handle_ddl_rollbacks_when_a_migration/om5znxr/`
+  5. r/Python boto3-resolver thread (`1tbtfz5`) — comment **swallowed by
+     the throttle** (2nd submit of the tick, silent-fail confirmed); not
+     retried, not resubmitted.
 - **Sub list for warming (AI-agent / stale-pkg-pain devs):** r/node,
   r/Python, r/devops, r/programming, r/softwaredevelopment. Account has
   Technology + Software Development + Open Source interests set.
