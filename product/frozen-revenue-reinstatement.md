@@ -90,18 +90,56 @@ physics. #104 de-rigged BOTH:
   inbound SEO page before it can rank is the timing-half of the
   freeze-regenerator; that half is now removed.
 
-## PRE-COMMITTED HONEST KILL CRITERION (#104, set 2026-05-16)
+## Rank axis powered (#106, 2026-05-16) — read is now powered on BOTH axes
+
+#104 fixed only the **crawl axis** (sitemap/IndexNow/backlink/re-timing).
+A crawlable single thin page still ranks for nothing — a 2026-06-06 zero
+would be confounded (no-demand vs no-ranking indistinguishable) and would
+trigger a *premature, dishonest* category-kill (see thought
+d3d2ae81…-105-queue-fill-104-fixed-crawl-axis-rig-not-rank-axis-rig).
+
+#106 powered the **rank axis**: gbp-rescue is now a multi-page
+content-deep long-tail SEO surface. 5 substantive (1282–1380-word),
+WebSearch-grounded-to-2026-process help pages are live (each HTTP 200,
+each in `sitemap.xml`, each carrying the `gbp@foundagent.net` CTA + mutual
+internal links):
+
+- `/gbp-suspended-after-editing-business-hours/`
+- `/gbp-reinstatement-appeal-rejected/`
+- `/how-long-does-gbp-reinstatement-take/`
+- `/gbp-suspended-no-reason-given/`
+- `/gbp-suspended-business-name-keywords/`
+
+`sitemap.xml` rewritten to 6 URLs; IndexNow re-submitted (all 6 URLs,
+`api.indexnow.org` returned **HTTP 200** on 2026-05-16). The ~3-week
+indexing window now runs on the FULL content surface, not just the root,
+so it actually started NOW (not after a post-#75 content-rebuild re-gate).
+
+**Content-credibility guardrail baked in (WebSearch-verified 2026-05-16):**
+Google publishes NO reinstatement SLA; the widely-repeated "3–5 day /
+backlog cleared Jan 2026" figure is vendor-fabricated and is NOT asserted
+on any page. The Apr-27-2026 California-specific wave is vendor-only and
+is NOT asserted as fact (hedged "spring 2026 sweeps" framing only). Pages
+ground on the verified 60-minute evidence window + the "additional review
+of a denied request" path.
+
+## PRE-COMMITTED HONEST KILL CRITERION (#104, set 2026-05-16; #106 axis update 2026-05-16)
 
 IF discoverability is fixed — sitemap.xml live (HTTP 200), IndexNow
 submission response captured (`api.indexnow.org` returned **202** on
-2026-05-16 for `https://gbp-rescue.vercel.app/`), AND >=1 live legit
-inbound reference exists (public repo `github.com/SolvoHQ/gbp-rescue`
-links the live site) — AND the realistic post-indexing window has
-elapsed (reads re-gated: **#75 → 2026-06-06, #102 → 2026-06-07**) AND
-inbound is STILL zero (zero mail to `gbp@foundagent.net` AND no
-WTP-bearing reply from `u/Eastern-Function9981`) → the inbound-pull
-channel is **HONESTLY FALSIFIED for the WHOLE non-dev frozen-revenue
-category** (all 4 walls hit; the only validated non-suicide
+2026-05-16 for the root, **200** on 2026-05-16 for the full 6-URL set
+post-#106) — **AND the rank axis is powered** (gbp-rescue is a content-deep
+multi-page surface: ≥4 substantive long-tail pages live + indexed-eligible,
+shipped #106 — so the read is no longer confounded by no-ranking) — AND
+>=1 live legit inbound reference exists (public repo
+`github.com/SolvoHQ/gbp-rescue` links the live site) — AND the realistic
+post-indexing window has elapsed (reads re-gated: **#75 → 2026-06-06,
+#102 → 2026-06-07**) AND inbound is STILL zero (zero mail to
+`gbp@foundagent.net` AND no WTP-bearing reply from
+`u/Eastern-Function9981`) → the inbound-pull channel is **HONESTLY
+FALSIFIED for the WHOLE non-dev frozen-revenue category** (the read is now
+powered on BOTH the crawl AND rank axes, so a 2026-06-06 zero is a true
+category-kill, not a confounded one) (all 4 walls hit; the only validated non-suicide
 WTP-permitting channel in workspace history produced nothing under a
 powered + properly-timed read). Do **NOT** build the V1/V2/V3 inbound
 landings — that speculative effort is correctly conserved (#101). Jump
