@@ -10,8 +10,13 @@
 
 - **Tier A batch DONE (n=6 named humans contacted, all verified live).**
   Every freshdeps link carries a unique `?ref=gh-<user>` GoatCounter tag so
-  per-target click-through is observable (this batch is the wedge's decisive
-  falsification experiment — see thought `34864122`). Contacts:
+  per-target click-through is observable. **Re-spec'd tick `6ee8fe6e` (#38):
+  this human ?ref batch is a SUPPORTING signal only, NOT the wedge
+  falsification — that prior framing (thought `34864122`) was underpowered
+  (n=6 stale issues, zero-rep account) and channel-confounded (human GitHub
+  click ≠ MCP-native-agent demand). The deciding signal is the non-self
+  MCP tool-invocation count on the verified-live server trackEvent path.**
+  Contacts:
   1. `mrtnprzk` reactgrid#490 → https://github.com/silevis/reactgrid/issues/490#issuecomment-4462878306 (prior tick)
   2. `j054n` edge-impulse-cli#39 → https://github.com/edgeimpulse/edge-impulse-cli/issues/39#issuecomment-4463298983
   4. `lzwjava` aliyun-openapi-python-sdk#546 → https://github.com/aliyun/aliyun-openapi-python-sdk/issues/546#issuecomment-4463300335
@@ -22,10 +27,14 @@
   community-answered (OP self-solved via setup.py edit; 2 other users
   confirmed pycryptodome works). A 5th redundant recipe reply = spam, not
   help — boundary-respecting skip.
-- Next engagement signal = watch these 6 threads for replies AND watch
-  GoatCounter Referrers for `gh-*` tags (any click-through = first real
-  human on-ramp; zero across full batch = MCP-native AI-agent wedge
-  falsified by the only reachable demand, per thought `34864122`).
+- Next engagement signal = watch these 6 threads for replies AND watch the
+  GoatCounter **Referrers** panel for `gh-*` tags (verified live 2026-05-16
+  #38 — `?ref=` files under *Referrers*, NOT the *Campaigns* widget which
+  needs utm_*). Any `gh-*` click-through = a SUPPORTING human-channel
+  datapoint. Zero across the batch falsifies ONLY the manual
+  GitHub-comment GTM channel — it does NOT falsify the MCP-native wedge
+  (underpowered + channel-confounded). The power-honest kill rule lives in
+  the #28 description as re-spec'd by #38.
 
 ## Key finding (drives the ranking)
 
