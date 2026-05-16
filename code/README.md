@@ -114,6 +114,91 @@ npm + PyPI only. No auth, no DB, no payments, no CI-scanner features.
 Stack: Next.js 16 (App Router) · TypeScript strict · Node 20.
 
 <!-- ============================================================ -->
+## Payments (collection rail)
+
+The **current, zero-dependency collection rail** is a self-custodied EVM
+wallet. There is no signup, no KYC, no API key, no third-party that can
+fail or freeze funds. The keypair was generated once with ethers v6 and
+persisted into `<workspace>/.solvo/secrets.env`:
+
+- `SOLVO_PAYOUT_WALLET_ADDRESS` — the public receive address. Server-side
+  only; safe to read in route handlers, safe to print, safe to show a
+  payer. This is the only value any payment code path needs.
+- `SOLVO_PAYOUT_WALLET_PRIVKEY` — the spend key. **Server-side only,
+  never `NEXT_PUBLIC_`, never in the client bundle, never read by any
+  verification code.** Nothing in `code/` reads this key; collection
+  verification is strictly read-only and never needs it.
+
+`.solvo/secrets.env` is gitignored and must never be committed.
+
+This rail is wedge-agnostic infra (`code/lib/payments/`,
+`code/app/api/pay/status/`) — no product-specific imports — so any future
+wedge can collect its first dollar without a human, bank, or Stripe/KYC.
+
+### Supported chains + USDC contracts
+
+| chain key      | RPC (official public)                              | USDC contract                                |
+|----------------|----------------------------------------------------|----------------------------------------------|
+| `base`         | `https://mainnet.base.org`                         | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`  |
+| `ethereum`     | `https://eth.llamarpc.com`                         | `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`  |
+| `base-sepolia` | `https://sepolia.base.org`                         | `0x036CbD53842c5426634e7929541eC2318f3dCF7e`  |
+| `sepolia`      | `https://ethereum-sepolia-rpc.publicnode.com`      | (native only)                                |
+
+Pass `rpcUrl` to `verifyPayment(...)` to override any default. Pass a raw
+`0x` ERC-20 address as `tokenAddress` for tokens not in the table (decimals
+are read on-chain). Omit `tokenAddress` to check the native coin.
+
+### `verifyPayment(...)` — `code/lib/payments/verify.ts`
+
+Pure read-only on-chain balance check via an ethers v6 `JsonRpcProvider`.
+Never touches a private key.
+
+```ts
+import { verifyPayment } from "@/lib/payments/verify";
+
+// Has >= 1 USDC landed at the collection wallet on Base?
+const r = await verifyPayment({
+  chain: "base",
+  payTo: process.env.SOLVO_PAYOUT_WALLET_ADDRESS!,
+  tokenAddress: "usdc",   // known shortcut, raw 0x addr, or omit for native
+  minAmount: "1",         // human units; default "0" => any non-zero => paid
+});
+// => { paid: boolean, balance: "12.5", address, chain, token }
+```
+
+### `GET /api/pay/status` — `code/app/api/pay/status/route.ts`
+
+Reads `SOLVO_PAYOUT_WALLET_ADDRESS` from server env (never the privkey),
+calls `verifyPayment`, returns JSON. `runtime = "nodejs"`,
+`dynamic = "force-dynamic"`, never cached.
+
+```
+GET /api/pay/status?chain=base&token=usdc&min=1
+=> { "address": "0x51BB…3cA9", "chain": "base",
+     "token": "0x8335…2913", "balance": "0.0", "paid": false }
+```
+
+Query params: `chain` (default `base`), `token` (shortcut/`0x` addr, or
+`native`/omitted), `min` (default `0`).
+
+### KNOWN LIMITATION (intentional)
+
+Verification is **balance-based**: it proves funds are AT the address, it
+cannot attribute a payment to a specific payer or invoice. This is
+deliberately minimal — no DB, no invoicing, no per-payer attribution.
+That makes it correct for **one-off / tip / single-tenant collection**
+(e.g. "did our wallet receive the $X we asked for?"). It is NOT correct
+for multi-tenant billing where you must know *who* paid. When a wedge
+needs per-invoice attribution, upgrade to either HD-derived per-invoice
+addresses (one fresh address per invoice, deterministic from the seed)
+or a hosted-invoice provider.
+
+> Fiat-off-ramp upgrade path: **NOWPayments** (email-only signup, no-KYC
+> crypto, ~0.5% fee) is the documented hosted-invoice / fiat-settlement
+> upgrade — see the NOWPayments section below. It is the *future* path,
+> not what this rail is today.
+
+<!-- ============================================================ -->
 ## Payment rail (NOWPayments)
 
 Generic, non-custodial crypto collection rail. Not a freshdeps feature — it
