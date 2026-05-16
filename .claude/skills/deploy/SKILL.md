@@ -1,6 +1,6 @@
 ---
 name: deploy
-description: Publish the workspace's code/ directory to the public internet via Vercel, Netlify, or Cloudflare Pages. Required before the mandate's "real users see real changes" can hold. Token must be in env — no interactive login.
+description: Publish the workspace's code/ directory to the public internet via Vercel, Netlify, or Cloudflare Pages. Required before "real users see real changes" can hold. Token must be in env — no interactive login.
 ---
 
 # Deploy

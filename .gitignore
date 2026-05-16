@@ -1,3 +1,7 @@
 .playwright-mcp/
 
 scripts/out/
+
+# File-sync conflict artifacts ("name 4.ext" duplicates); some are unreadable
+# (EDEADLK) and break `git add .` in the commit skill. Never want them tracked.
+* [0-9].*

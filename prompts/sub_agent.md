@@ -31,7 +31,6 @@
 
 ## Workspace 结构
 
-- `MANDATE.md` —— 公司使命(只读,不改)
 - `product/` —— 产品定义(综合层)
 - `product/log.md` —— thought 索引,append-only
 - `product/thoughts/` —— thought 全文。可能是扁平的 `<tick>-<slug>.md`,也可能已经被 `dream` skill consolidate 成三层:`raw/`(原始,immutable)、`cluster/`(按主题聚合)、`principle/`(distilled 规则)。 raw/ 一旦写入就不动,cluster / principle 是 dream 出来的产物。

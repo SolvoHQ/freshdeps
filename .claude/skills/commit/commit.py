@@ -41,6 +41,36 @@ def _stage_all(workspace_path: Path) -> None:
     for path in untracked:
         subprocess.run(["git", "-C", ws, "add", "--", path])
 
+
+def _push_best_effort(workspace_path: Path) -> None:
+    """Push the just-made commit to origin if a remote exists.
+
+    Pure backup convenience layered on the commit ritual: the commit has
+    already landed locally, so ANY push failure (no remote, offline,
+    non-fast-forward, auth) is swallowed — it must never fail the tick.
+    Bounded by a timeout so a slow/hung network can't eat the tick.
+    """
+    ws = str(workspace_path)
+    remotes = subprocess.run(
+        ["git", "-C", ws, "remote"], capture_output=True, text=True,
+    )
+    if remotes.returncode != 0 or "origin" not in remotes.stdout.split():
+        return
+    branch = subprocess.run(
+        ["git", "-C", ws, "rev-parse", "--abbrev-ref", "HEAD"],
+        capture_output=True, text=True,
+    )
+    ref = branch.stdout.strip() or "HEAD"
+    try:
+        r = subprocess.run(
+            ["git", "-C", ws, "push", "origin", ref],
+            capture_output=True, text=True, timeout=120,
+        )
+        if r.returncode != 0:
+            print(f"[commit] push skipped (non-fatal): {r.stderr.strip()[-300:]}")
+    except subprocess.TimeoutExpired:
+        print("[commit] push timed out (non-fatal); commit is local-only")
+
 # Owner GitHub identity. All Solvo agents commit as the project owner
 # so the work shows up on their contribution graph; per-workspace
 # attribution rides in the Co-authored-by trailer below. cli.py also
@@ -95,3 +125,4 @@ def commit(
         ["git", "-C", str(workspace_path), "commit", "-m", message],
         check=True,
     )
+    _push_best_effort(Path(workspace_path))
