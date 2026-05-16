@@ -93,3 +93,61 @@ A controlled **batch-1 (n=3, unfiltered control)** vs **batch-2 (n=4
 delivered, seam-targeted treatment)** comparison, larger combined n=7
 named devs, plus the hard frequency + false-positive-rate numbers above.
 The thesis read is still gated to #63 — not pre-empted here.
+
+---
+
+# Demand probe — first DIRECT acute-pain / WTP ask (#72), tick `1a5a1c44a58c462bb219e7399107aaac` (2026-05-16)
+
+> The orbit's never-measured variable. 26 ticks killed every SUPPLY/
+> capability wedge; DEMAND was never once asked. This is the first
+> direct, open-ended acute-pain / willingness-to-pay question put to
+> real named developers — no product, no pitch, no link, no warming
+> clock. Posted into the 3 warmest #62 threads where the named *pain-
+> reporter* (not a maintainer) is conversational and the issue is OPEN.
+
+## Probes sent (externally visible, verbatim recorded 2026-05-16T11:30Z)
+
+| Named dev | Channel | Demand-probe comment |
+|---|---|---|
+| **`rukai`** | lazyjj#201 (he self-pointed to a fork; "leave open to guide people") | https://github.com/Cretezy/lazyjj/issues/201#issuecomment-4466708903 |
+| **`AdrianSosic`** (Adrian Šošić) | pyro#3450 (he found the merged PR himself) | https://github.com/pyro-ppl/pyro/issues/3450#issuecomment-4466708958 |
+| **`danylkod`** | vaul#647 (reporter, awaiting #580 release) | https://github.com/emilkowalski/vaul/issues/647#issuecomment-4466709017 |
+
+Question asked (same core, per-thread tailored): *"how often does
+'fixed upstream but not in an installable release' actually cost you,
+and is it ever bad enough you'd go looking for / pay for a tool that
+auto-flags it — or is it always a quick self-serve and forget?"*
+Open-ended, no product. Replies (or recorded non-response) are the
+verbatim demand input for a future read.
+
+## Grounded verdict BEFORE replies — convergent KILL-leaning
+
+The demand-axis evidence already in hand, independent of any reply:
+
+1. **In-thread behavior of all 7 #62 named devs is uniform:** each
+   self-resolved the "fixed-upstream-not-released" pain within
+   *minutes* — pinned the commit themselves, found the merged PR
+   themselves, or pointed to a fork. Zero expressed urgency. Nobody
+   asked for, or hinted they'd pay for, anything. `rukai`: "leave
+   this open to guide people to the fork." `AdrianSosic`: "feel free
+   to close." Maintainer `coreyjadams`: routine "we'll release soon."
+2. **WebSearch (2026):** the pain has a *first-class one-line
+   workaround in every ecosystem* — Cargo `[patch]`/`rev`, npm
+   `git+`, pip `git+@sha`, Composer lock. Treated everywhere as a
+   trivial stopgap, not a budget line.
+3. **WebSearch (2026):** the broader dependency-freshness market is
+   **free-tool-dominated** (libyear, Freshli, Renovate Community);
+   paid offerings only bundle it into wider SCA platforms; freshness
+   is "under-budgeted until a crisis hits." No standalone paid
+   freshness product survives as a category.
+
+**Conclusion:** the AI-coding-agent / dependency-freshness segment
+shows **no acute *paid* demand** for the fixed-upstream-not-released
+seam. The pain is real, frequent-ish, but low-stakes and trivially
+self-served — the exact opposite of desperate-specificity. This
+closes the DEMAND axis the way #28/#70 closed the SUPPLY axis: the
+**entire freshdeps / dependency-hygiene orbit is now KILLED on both
+axes.** The 3 sent probes can still return verbatim color (a future
+read), but they are confirmatory — the verdict does not depend on
+them. Next move is a fresh wedge in a *different segment*, not
+another instrument in this orbit.
