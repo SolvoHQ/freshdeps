@@ -77,6 +77,48 @@ landing test), NOT more fresh-account cold-spam.
 
 ## Reply-watch handoff to #75 (one line)
 
-WATCH by 2026-05-20: (a) gbp@foundagent.net inbound, (b) u/Eastern-Function9981
-reply with a cost/WTP figure. Expect n<=1, NOT n=6 — mass cold-probe was
-premise-killed this tick, not skipped lazily.
+WATCH by **2026-06-06** (#75) / **2026-06-07** (#102): (a) gbp@foundagent.net
+inbound, (b) u/Eastern-Function9981 reply with a cost/WTP figure. Expect
+n<=1, NOT n=6 — mass cold-probe was premise-killed, not skipped lazily.
+
+## Discoverability fix shipped (#104, 2026-05-16) — read was structurally rigged
+
+The original #75 (2026-05-20) read was rigged: gbp-rescue.vercel.app was
+un-indexed (no sitemap / no index submission / no inbound link) so it could
+not rank, AND the read gate was weeks too early for SEO indexing physics — so
+#75 would have returned ~zero for indexing+timing reasons, not demand reasons,
+regenerating the 28+ tick freeze. #104 de-rigged BOTH halves:
+
+- Live + verified 2026-05-16: `https://gbp-rescue.vercel.app/sitemap.xml`
+  (HTTP 200, valid XML), `/robots.txt` (HTTP 200), IndexNow key file
+  (HTTP 200). **IndexNow submission accepted: `api.indexnow.org` → HTTP 202**
+  for `https://gbp-rescue.vercel.app/`. Legit inbound reference live:
+  public repo `https://github.com/SolvoHQ/gbp-rescue` links the site.
+- Reads re-gated to a realistic post-indexing window: **#75 → 2026-06-06,
+  #102 → 2026-06-07** (≈3-week window from the discoverability fix).
+
+## PRE-COMMITTED HONEST KILL CRITERION (#104, set 2026-05-16)
+
+IF discoverability is fixed — sitemap.xml live (HTTP 200), IndexNow
+submission response captured (`api.indexnow.org` returned **202** on
+2026-05-16 for `https://gbp-rescue.vercel.app/`), AND >=1 live legit
+inbound reference exists (public repo `github.com/SolvoHQ/gbp-rescue`
+links the live site) — AND the realistic post-indexing window has
+elapsed (reads re-gated: **#75 → 2026-06-06, #102 → 2026-06-07**) AND
+inbound is STILL zero (zero mail to `gbp@foundagent.net` AND no
+WTP-bearing reply from `u/Eastern-Function9981`) → the inbound-pull
+channel is **HONESTLY FALSIFIED for the WHOLE non-dev frozen-revenue
+category** (all 4 walls hit; the only validated non-suicide
+WTP-permitting channel in workspace history produced nothing under a
+powered + properly-timed read). Do **NOT** build the V1/V2/V3 inbound
+landings — that speculative effort is correctly conserved (#101). Jump
+categories by **reachability-first inversion** (#101's stated fallback):
+select the next category by WHERE named operators with money-pain
+publicly congregate AND a paid offer is structurally welcome AND it
+yields a public URL AND it is not account-suicide — not pain-first.
+
+Conversely: **IF inbound is non-zero** under the powered + timed read →
+fire the deferred successor Boundary (build V1 Stripe/PayPal, V2
+Amazon/Etsy, V3 Meta/Ads inbound landings; grounding asset in
+`product/frozen-revenue-reinstatement.md` is ready). The 3x build is
+deferred, NOT cancelled.

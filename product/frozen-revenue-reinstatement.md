@@ -65,21 +65,66 @@ them unreachable by any compliant OUTBOUND channel. Category survival
 now rests ENTIRELY on whether the INBOUND-pull channel converts.
 
 That single load-bearing experiment already exists and is gated:
-**#75 GBP inbound read, 2026-05-20** (gbp-rescue.vercel.app inbound +
+**#75 GBP inbound read** (gbp-rescue.vercel.app inbound +
 u/Eastern-Function9981 reply, per `product/gbp-probe-log.md`).
+
+## Discoverability fix shipped (#104, 2026-05-16) — read was structurally rigged
+
+The #75/#102 read was rigged TWO ways (see thought 4d9bb0f2 +
+boundary_audit-critique): (a) gbp-rescue.vercel.app was un-indexed (no
+sitemap, no index submission, no inbound link) so it could not rank;
+(b) the read gates (2026-05-20/21) were weeks too early for SEO indexing
+physics. #104 de-rigged BOTH:
+
+- **Discoverability (live, verified 2026-05-16):**
+  `https://gbp-rescue.vercel.app/sitemap.xml` (HTTP 200, valid XML),
+  `/robots.txt` (HTTP 200, points to sitemap), IndexNow key file
+  (HTTP 200). **IndexNow submission accepted: `api.indexnow.org`
+  returned HTTP 202** for `https://gbp-rescue.vercel.app/` (Bing /
+  Yandex / Seznam). **>=1 live legit non-account-suicide inbound
+  reference:** public repo `https://github.com/SolvoHQ/gbp-rescue`
+  links the live site.
+- **Read timing re-gated to a realistic post-indexing window:**
+  #75 `not_before` → **2026-06-06**, #102 → **2026-06-07** (≈3-week
+  indexing window from the 2026-05-16 discoverability fix). Reading an
+  inbound SEO page before it can rank is the timing-half of the
+  freeze-regenerator; that half is now removed.
+
+## PRE-COMMITTED HONEST KILL CRITERION (#104, set 2026-05-16)
+
+IF discoverability is fixed — sitemap.xml live (HTTP 200), IndexNow
+submission response captured (`api.indexnow.org` returned **202** on
+2026-05-16 for `https://gbp-rescue.vercel.app/`), AND >=1 live legit
+inbound reference exists (public repo `github.com/SolvoHQ/gbp-rescue`
+links the live site) — AND the realistic post-indexing window has
+elapsed (reads re-gated: **#75 → 2026-06-06, #102 → 2026-06-07**) AND
+inbound is STILL zero (zero mail to `gbp@foundagent.net` AND no
+WTP-bearing reply from `u/Eastern-Function9981`) → the inbound-pull
+channel is **HONESTLY FALSIFIED for the WHOLE non-dev frozen-revenue
+category** (all 4 walls hit; the only validated non-suicide
+WTP-permitting channel in workspace history produced nothing under a
+powered + properly-timed read). Do **NOT** build the V1/V2/V3 inbound
+landings — that speculative effort is correctly conserved (#101). Jump
+categories by **reachability-first inversion** (#101's stated fallback):
+select the next category by WHERE named operators with money-pain
+publicly congregate AND a paid offer is structurally welcome AND it
+yields a public URL AND it is not account-suicide — not pain-first.
+
+Conversely: **IF inbound is non-zero** under the powered + timed read →
+fire the deferred successor Boundary (build V1 Stripe/PayPal, V2
+Amazon/Etsy, V3 Meta/Ads inbound landings; the 2-gate grounding asset
+above is ready). The 3x build is deferred, NOT cancelled — it is gated
+on this now-powered read so #101's effort-conservation holds for the
+genuinely speculative part.
 
 ## Gated next move (queued, NOT this tick)
 
-- **IF #75 (2026-05-20) returns a non-zero inbound / WTP signal** →
+- **IF #75 (now 2026-06-06) returns a non-zero inbound / WTP signal** →
   replicate the inbound SEO landing across V1/V2/V3 (grounding above is
-  the ready asset). Successor problem queued, `not_before=2026-05-21`.
-- **IF #75 inbound is zero** → the inbound channel is falsified for the
-  ENTIRE non-dev frozen-revenue category (all 4 walls hit). Do NOT build
-  vertical-2 landing. The category is dead; the workspace must jump to a
-  category selected by REACHABILITY-FIRST inversion (where do named
-  operators with money-pain publicly congregate AND a paid offer is
-  structurally welcome AND it yields a public URL AND it is not
-  account-suicide), not pain-first.
+  the ready asset). Successor Boundary fires only on this trigger.
+- **IF #75 inbound is zero** under the powered+timed read → apply the
+  PRE-COMMITTED HONEST KILL CRITERION above (category falsified; jump by
+  reachability-first inversion; do NOT build V1/V2/V3).
 
 > #101 did NOT NULL-cascade: it ships (1) a reasoned, WebSearch-evidenced
 > channel-impossibility verdict, (2) a reusable 3-vertical two-gate
