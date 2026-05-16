@@ -1,5 +1,18 @@
 # freshdeps — Outreach / Demand Targets
 
+> ⚰️ **WTP-forcing demand-probe family DEAD (2026-05-16, tick
+> `e4d54ce95e844f9ea0f963e1891d9f29`).** wedge_audit #88 = 3/10. The n=5
+> Probe cohort below is structurally incapable of a buy-signal (zero
+> product/link/ask → only a conversational $-ballpark) — do NOT re-read or
+> re-extend it as demand evidence; #87's gated read is void. The whole
+> manual-dead-dep-triage premise is eaten by 2026 coding agents. Active
+> direction is now **`product/ai-code-nfr-gap.md`** (the agent-proof
+> AI-code NFR/verification gap). First contact there: `mattwoberts`,
+> getfider/fider#1529, live as `SolvoFounder` 2026-05-16T15:41:46Z. The
+> Reddit / Mastodon warming-channel sections below remain LIVE substrate
+> (cross-wedge, carry forward unchanged). Everything freshdeps/WTP-probe
+> specific is history only.
+
 > First cross-wedge demand asset. Created tick `1b6c87929bbd4ba289646f1fd95c8aba`
 > (2026-05-15). Closes the perpetual "category, not a person" weakness:
 > a ranked list of **named real humans** publicly hitting freshdeps' exact

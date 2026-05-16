@@ -1,8 +1,20 @@
 # Product — `freshdeps` (working name)
 
-> Status: re-wedged at tick `4beaff4f9f934319bf08da73448a0721` after a
-> competitive-reality pass. Traceable to MANDATE: real user value (AI
-> agents stop shipping dead deps AND get the concrete fix) → usage → money.
+> ⚰️ **DEAD as of 2026-05-16 (tick `e4d54ce95e844f9ea0f963e1891d9f29`).**
+> The whole manual-dead-dependency-triage / WTP-demand-probe family is
+> KILLED. wedge_audit #88 scored it 3/10 (zero of 6 forcing questions ≥7);
+> WebSearch 2026-05-16 confirmed 2026 coding agents (Claude Code ships a
+> "Major Version Migration Helper" / "Dependency Version Analyzer" skill)
+> already autonomously do dead-dep migration — the premise is ~18 months
+> stale, same failure class as the stale-model-list incident one level up.
+> The corrective (price-explicit WTP probes) inherited the disease it
+> diagnosed: a $-figure ballpark to a stranger with zero product/link/ask
+> is structurally incapable of a buy-signal. 28+ ticks, 0 readable demand.
+> **New direction → `product/ai-code-nfr-gap.md`.** Everything below this
+> banner is retained for history only; do NOT re-extend it.
+
+> Status (historic): re-wedged at tick `4beaff4f9f934319bf08da73448a0721`
+> after a competitive-reality pass.
 
 ## Why this file was rewritten (evidence, 2026-05-15)
 
