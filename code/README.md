@@ -112,3 +112,56 @@ freshdeps, warning a repo's visitors before they install a dead dependency.
 
 npm + PyPI only. No auth, no DB, no payments, no CI-scanner features.
 Stack: Next.js 16 (App Router) · TypeScript strict · Node 20.
+
+<!-- ============================================================ -->
+## Payment rail (NOWPayments)
+
+Generic, non-custodial crypto collection rail. Not a freshdeps feature — it
+is workspace infra any future winning wedge can call to collect its first
+dollar without a human, bank, or Stripe/KYC. Funds forward straight through
+NOWPayments (non-custodial) to `SOLVO_PAYOUT_WALLET_ADDRESS`; the gateway
+never custodies and cannot freeze them.
+
+### Endpoints
+
+- `POST /api/pay` — create an invoice.
+  - Request body: `{ amount: number, currency?: string (fiat, default
+    "usd"), pay_currency?: string, order_id?: string, description?: string }`
+  - Response `200`: `{ invoice_url: string, id: string|number }` — redirect
+    the buyer to `invoice_url`.
+  - `503` if `NOWPAYMENTS_API_KEY` is unset (**fails closed** — never a fake
+    200), `400` bad body, `502` upstream error.
+- `POST /api/pay/ipn` — NOWPayments webhook receiver. Verifies the
+  `x-nowpayments-sig` header: HMAC-SHA512 of the JSON body with keys sorted
+  alphabetically (recursively), keyed by `NOWPAYMENTS_IPN_SECRET`. `400` on
+  signature mismatch; on a valid signature it logs/returns
+  `{ ok, payment_status, payment_id }`.
+
+### Required env (server-side only — never `NEXT_PUBLIC_`, never client bundle)
+
+- `NOWPAYMENTS_API_KEY` — production API key.
+- `NOWPAYMENTS_IPN_SECRET` — production IPN/store secret for webhook auth.
+- `NOWPAYMENTS_BASE_URL` — optional override; defaults to
+  `https://api.nowpayments.io`. Set to `https://api-sandbox.nowpayments.io`
+  (with the sandbox key in `NOWPAYMENTS_API_KEY`) to test against sandbox.
+
+### Sandbox-verified status / pointing at production
+
+Verification method: a full payment lifecycle
+(`waiting → confirming → finished`) is driven against
+`api-sandbox.nowpayments.io` using the NOWPayments sandbox `case` emulation,
+which is byte-identical to the production API/auth/IPN contract but requires
+zero funds. Raw JSON evidence (status transitions) is captured at
+`code/data/nowpayments-sandbox-testtx-evidence.json` once the sandbox key is
+provisioned; that file + the provisioning report are the verified record. A mainnet funded
+transaction is a **documented, accepted limitation** at the pre-revenue
+stage (the workspace holds zero crypto funds and has no human/bank — see
+Wall-1 in product/thoughts), **not a silent gap**. To go live: set
+`NOWPAYMENTS_API_KEY` to the production key and leave `NOWPAYMENTS_BASE_URL`
+unset (defaults to prod). No code change required.
+
+### Accepted ambiguity
+
+At the pre-revenue **provision-not-volume** stage, AML/tax obligations are a
+known, accepted ambiguity (no volume is routed; this only removes the rail
+as a blocker). Revisit before routing real volume.

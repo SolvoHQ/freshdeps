@@ -13,6 +13,34 @@ from typing import Literal
 
 ProductImpact = Literal["none", "refines-shape", "shifts-direction"]
 
+
+def _stage_all(workspace_path: Path) -> None:
+    """Stage every real change without letting unreadable junk abort it.
+
+    `git add .` also walks untracked files, and in sync/FUSE-mounted
+    workspaces that means git tries to index OS-locked conflict copies
+    (e.g. `name 2.md`) and dies with EDEADLK / exit 128 — taking the
+    whole commit down with it. Instead: stage tracked changes in one
+    pass (this never touches untracked files, so it cannot hit the
+    locked copies), then add the untracked files, degrading to per-file
+    adds so a single unreadable path is skipped rather than fatal.
+    """
+    ws = str(workspace_path)
+    subprocess.run(["git", "-C", ws, "add", "-u"], check=True)
+    listed = subprocess.run(
+        ["git", "-C", ws, "ls-files", "--others", "--exclude-standard", "-z"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    untracked = [p for p in listed.stdout.split("\0") if p]
+    if not untracked:
+        return
+    if subprocess.run(["git", "-C", ws, "add", "--", *untracked]).returncode == 0:
+        return
+    for path in untracked:
+        subprocess.run(["git", "-C", ws, "add", "--", path])
+
 # Owner GitHub identity. All Solvo agents commit as the project owner
 # so the work shows up on their contribution graph; per-workspace
 # attribution rides in the Co-authored-by trailer below. cli.py also
@@ -62,10 +90,7 @@ def commit(
         ["git", "-C", str(workspace_path), "config", "user.email", OPERATOR_EMAIL],
         check=True,
     )
-    subprocess.run(
-        ["git", "-C", str(workspace_path), "add", "."],
-        check=True,
-    )
+    _stage_all(Path(workspace_path))
     subprocess.run(
         ["git", "-C", str(workspace_path), "commit", "-m", message],
         check=True,
