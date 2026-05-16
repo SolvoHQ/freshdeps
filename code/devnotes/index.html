@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AbortController, in full — the cancellation playground</title>
+<meta name="description" content="A runnable, copy-paste cheatsheet for JavaScript AbortController & AbortSignal: cancel fetch, AbortSignal.timeout(), AbortSignal.any(), combining signals, ignoring AbortError, React useEffect cleanup under StrictMode, and Node listener cleanup. Verified against the 2026 API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Analytics: dedicated solvo-devnotes namespace (decoupled from any other property) -->
+<script data-goatcounter="https://solvo-devnotes.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root{
+    --bg:#080a0d;
+    --panel:#0e1217;
+    --panel-2:#11161d;
+    --line:#1d242e;
+    --ink:#e8edf2;
+    --ink-dim:#8a96a3;
+    --ink-faint:#5b6571;
+    --signal:#ffc043;      /* signal / armed */
+    --abort:#ff5c5c;       /* abort fired */
+    --timeout:#ff9d3d;     /* timeout fired */
+    --ok:#4de1b4;          /* completed */
+    --link:#7fb8ff;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --display:'Bricolage Grotesque',var(--sans);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:
+      radial-gradient(900px 500px at 82% -8%, rgba(255,192,67,.10), transparent 60%),
+      radial-gradient(700px 600px at -10% 30%, rgba(77,225,180,.06), transparent 55%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;
+    background-image:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;
+  }
+  .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  header{padding:84px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--signal);display:flex;align-items:center;gap:12px;margin-bottom:26px;
+  }
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);
+    box-shadow:0 0 0 0 rgba(255,192,67,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,192,67,.55)}70%{box-shadow:0 0 0 12px rgba(255,192,67,0)}100%{box-shadow:0 0 0 0 rgba(255,192,67,0)}}
+  h1{
+    font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,7vw,5.2rem);
+    line-height:.98;letter-spacing:-.02em;margin-bottom:24px;
+  }
+  h1 .strike{position:relative;color:var(--abort)}
+  h1 .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:5px;
+    background:var(--abort);transform:scaleX(0);transform-origin:left;
+    animation:cut 1s .5s cubic-bezier(.7,0,.3,1) forwards}
+  @keyframes cut{to{transform:scaleX(1)}}
+  .lede{font-size:1.18rem;color:var(--ink-dim);max-width:64ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .meta{
+    margin-top:34px;display:flex;flex-wrap:wrap;gap:10px;
+    font-family:var(--mono);font-size:12px;color:var(--ink-faint);
+  }
+  .chip{border:1px solid var(--line);padding:6px 12px;border-radius:999px;background:var(--panel)}
+  .chip b{color:var(--ok);font-weight:600}
+
+  /* ---------- toc ---------- */
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(8,10,13,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.toc ul{display:flex;gap:4px;list-style:none;overflow-x:auto;padding:12px 24px;max-width:1080px;margin:0 auto}
+  nav.toc a{font-family:var(--mono);font-size:12px;color:var(--ink-dim);text-decoration:none;
+    white-space:nowrap;padding:7px 13px;border-radius:7px;border:1px solid transparent;transition:.18s}
+  nav.toc a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--signal);letter-spacing:.2em;margin-bottom:10px}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.5rem);
+    letter-spacing:-.015em;margin-bottom:14px;line-height:1.1}
+  .sec-intro{color:var(--ink-dim);max-width:70ch;margin-bottom:30px;font-size:1.05rem}
+  .sec-intro code,p code,li code{font-family:var(--mono);font-size:.86em;color:var(--signal);
+    background:var(--panel-2);padding:2px 6px;border-radius:5px;border:1px solid var(--line)}
+
+  /* ---------- code block ---------- */
+  .code{position:relative;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;margin:0 0 22px}
+  .code .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;
+    border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .code .bar .tl{display:flex;gap:6px}
+  .code .bar .tl i{width:10px;height:10px;border-radius:50%;display:block}
+  .code .bar .tl i:nth-child(1){background:#ff5c5c}
+  .code .bar .tl i:nth-child(2){background:#ffc043}
+  .code .bar .tl i:nth-child(3){background:#4de1b4}
+  .code .bar .fn{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-left:6px}
+  .code .bar .copy{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);padding:6px 11px;border-radius:6px;
+    cursor:pointer;transition:.16s;letter-spacing:.06em}
+  .code .bar .copy:hover{color:var(--bg);background:var(--signal);border-color:var(--signal)}
+  .code .bar .copy.done{color:var(--bg);background:var(--ok);border-color:var(--ok)}
+  pre{margin:0;padding:20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7}
+  code.js{white-space:pre;color:#cfd8e3}
+  .t-kw{color:#ff9d8a}.t-fn{color:#7fb8ff}.t-str{color:#9be29b}.t-num{color:#ffc043}
+  .t-com{color:#5b6571;font-style:italic}.t-prop{color:#9ad0ff}.t-this{color:#ffb3d9}
+
+  /* ---------- live demo ---------- */
+  .demo{background:linear-gradient(180deg,var(--panel-2),var(--panel));
+    border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:22px}
+  .demo .ctrls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  button.act{font-family:var(--mono);font-size:13px;font-weight:500;cursor:pointer;
+    border-radius:8px;padding:10px 18px;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);transition:.16s;letter-spacing:.02em}
+  button.act:hover:not(:disabled){border-color:var(--signal);color:var(--signal)}
+  button.act:disabled{opacity:.4;cursor:not-allowed}
+  button.act.go{border-color:var(--ok);color:var(--ok)}
+  button.act.go:hover:not(:disabled){background:var(--ok);color:var(--bg)}
+  button.act.kill{border-color:var(--abort);color:var(--abort)}
+  button.act.kill:hover:not(:disabled){background:var(--abort);color:var(--bg)}
+  .field{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
+  .field input{width:84px;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px 10px;border-radius:6px}
+  .progress{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-bottom:14px;border:1px solid var(--line)}
+  .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--signal),var(--ok));transition:width .15s linear}
+  .console{font-family:var(--mono);font-size:12.5px;background:var(--bg);border:1px solid var(--line);
+    border-radius:8px;padding:14px;min-height:96px;max-height:240px;overflow-y:auto;line-height:1.75}
+  .console .ln{display:flex;gap:10px;animation:fadein .25s}
+  @keyframes fadein{from{opacity:0;transform:translateY(3px)}to{opacity:1}}
+  .console .ts{color:var(--ink-faint);flex-shrink:0}
+  .console .info{color:var(--ink-dim)}
+  .console .armed{color:var(--signal)}
+  .console .ok{color:var(--ok)}
+  .console .abort{color:var(--abort)}
+  .console .timeout{color:var(--timeout)}
+  .tag{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-faint);flex-shrink:0}
+
+  .note{border-left:3px solid var(--signal);background:var(--panel);padding:14px 18px;
+    border-radius:0 8px 8px 0;margin-bottom:22px;font-size:.96rem;color:var(--ink-dim)}
+  .note b{color:var(--signal)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}h1 .strike::after{height:4px}}
+
+  footer{padding:60px 0 90px;color:var(--ink-faint);font-family:var(--mono);font-size:13px}
+  footer a{color:var(--link);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .src{margin-top:14px;font-size:12px;color:var(--ink-faint);line-height:1.9}
+  ::selection{background:var(--signal);color:var(--bg)}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="kicker"><span class="dot"></span> dev notes &nbsp;/&nbsp; cancellation, done right</div>
+    <h1>Stop the work.<br><span class="strike">AbortController</span>, in full.</h1>
+    <p class="lede">One controller, one signal, every cancellation pattern you actually need — <b>fetch cancellation</b>, <b>timeouts</b>, <b>composed signals</b>, the <b>"abort is not an error"</b> rule, and cleanup in <b>React</b> and <b>Node</b>. Every block is runnable and copy-paste ready.</p>
+    <div class="meta">
+      <span class="chip">Verified against the <b>2026</b> API</span>
+      <span class="chip"><b>AbortSignal.timeout()</b> · Node 17.3+ · ~96% browsers</span>
+      <span class="chip"><b>AbortSignal.any()</b> · Node 20+ · ~90% browsers</span>
+    </div>
+  </header>
+</div>
+
+<nav class="toc">
+  <ul>
+    <li><a href="#mental">00 · the mental model</a></li>
+    <li><a href="#fetch">01 · cancel a fetch</a></li>
+    <li><a href="#timeout">02 · AbortSignal.timeout()</a></li>
+    <li><a href="#any">03 · AbortSignal.any()</a></li>
+    <li><a href="#noterror">04 · abort is not an error</a></li>
+    <li><a href="#react">05 · React useEffect</a></li>
+    <li><a href="#node">06 · Node cleanup</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <!-- 00 -->
+  <section id="mental">
+    <div class="sec-no">00</div>
+    <h2>The mental model</h2>
+    <p class="sec-intro">An <code>AbortController</code> is a remote with one button. The <code>controller.signal</code> is a wire you hand to any operation that's willing to listen. Call <code>controller.abort(reason)</code> and the signal flips to <code>aborted</code> forever — it fires an <code>abort</code> event once, then stays aborted. You never reuse a controller; you make a new one per operation.</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">model.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">const</span> controller = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>();
+<span class="t-kw">const</span> { signal } = controller;
+
+signal.<span class="t-fn">addEventListener</span>(<span class="t-str">'abort'</span>, () =&gt; {
+  <span class="t-com">// fires exactly once</span>
+  console.<span class="t-fn">log</span>(<span class="t-str">'aborted because:'</span>, signal.reason);
+}, { once: <span class="t-num">true</span> });
+
+controller.<span class="t-fn">abort</span>(<span class="t-kw">new</span> <span class="t-fn">DOMException</span>(<span class="t-str">'user cancelled'</span>, <span class="t-str">'AbortError'</span>));
+
+signal.aborted;           <span class="t-com">// true — sticky, forever</span>
+signal.<span class="t-fn">throwIfAborted</span>();    <span class="t-com">// throws signal.reason if aborted; no-op otherwise</span></code></pre>
+    </div>
+    <div class="note"><b>Rule:</b> a controller is single-use. Aborted is a terminal state. If you need to cancel again, create a fresh <code>AbortController</code>.</div>
+  </section>
+
+  <!-- 01 -->
+  <section id="fetch">
+    <div class="sec-no">01</div>
+    <h2>Cancel a fetch</h2>
+    <p class="sec-intro">Pass <code>signal</code> into <code>fetch</code>. When you abort, the in-flight request rejects with an <code>AbortError</code>. The demo below runs an abortable async task that honors the signal exactly like <code>fetch</code> does — start it, then kill it mid-flight.</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">cancel-fetch.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">const</span> controller = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>();
+
+<span class="t-kw">async function</span> <span class="t-fn">load</span>(url, signal) {
+  <span class="t-kw">const</span> res = <span class="t-kw">await</span> <span class="t-fn">fetch</span>(url, { signal });
+  <span class="t-kw">return</span> res.<span class="t-fn">json</span>();
+}
+
+<span class="t-com">// somewhere else — e.g. user clicked "cancel", or a new search started</span>
+controller.<span class="t-fn">abort</span>();   <span class="t-com">// the fetch above rejects with a DOMException name="AbortError"</span></code></pre>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <button class="act go" id="f-start">▶ start request</button>
+        <button class="act kill" id="f-abort" disabled>■ controller.abort()</button>
+      </div>
+      <div class="progress"><i id="f-bar"></i></div>
+      <div class="console" id="f-con"></div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="timeout">
+    <div class="sec-no">02</div>
+    <h2><code>AbortSignal.timeout(ms)</code></h2>
+    <p class="sec-intro">A signal that aborts itself after <code>ms</code> milliseconds — no controller, no <code>setTimeout</code> bookkeeping. It aborts with a <code>TimeoutError</code> <code>DOMException</code> (note: <em>not</em> <code>AbortError</code> — that distinction is the whole point of the next two sections).</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">timeout.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">try</span> {
+  <span class="t-kw">const</span> res = <span class="t-kw">await</span> <span class="t-fn">fetch</span>(url, { signal: AbortSignal.<span class="t-fn">timeout</span>(<span class="t-num">5000</span>) });
+  <span class="t-kw">return</span> <span class="t-kw">await</span> res.<span class="t-fn">json</span>();
+} <span class="t-kw">catch</span> (err) {
+  <span class="t-kw">if</span> (err.name === <span class="t-str">'TimeoutError'</span>) console.<span class="t-fn">log</span>(<span class="t-str">'took too long'</span>);
+  <span class="t-kw">else throw</span> err;
+}</code></pre>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <span class="field">timeout(<input id="t-ms" type="number" value="1200" min="200" step="100">ms)</span>
+        <button class="act go" id="t-start">▶ run task (takes ~2000ms)</button>
+      </div>
+      <div class="console" id="t-con"></div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="any">
+    <div class="sec-no">03</div>
+    <h2><code>AbortSignal.any([...])</code></h2>
+    <p class="sec-intro">Compose many reasons into one signal. <code>AbortSignal.any()</code> returns a signal that aborts the moment <em>any</em> input aborts, carrying that input's <code>reason</code>. The classic case: an upload should stop if the user cancels, <em>or</em> the page navigates away, <em>or</em> a deadline passes.</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">compose.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">const</span> userCancel = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>();
+
+<span class="t-kw">const</span> signal = AbortSignal.<span class="t-fn">any</span>([
+  userCancel.signal,              <span class="t-com">// user clicks "stop"</span>
+  AbortSignal.<span class="t-fn">timeout</span>(<span class="t-num">10000</span>),     <span class="t-com">// hard deadline</span>
+]);
+
+<span class="t-kw">await</span> <span class="t-fn">fetch</span>(url, { signal });
+
+<span class="t-com">// reason tells you which one won the race:</span>
+<span class="t-com">//   AbortError   → user cancelled</span>
+<span class="t-com">//   TimeoutError → deadline hit</span></code></pre>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <span class="field">deadline(<input id="a-ms" type="number" value="3000" min="500" step="250">ms)</span>
+        <button class="act go" id="a-start">▶ start upload</button>
+        <button class="act kill" id="a-cancel" disabled>■ user cancel</button>
+      </div>
+      <div class="progress"><i id="a-bar"></i></div>
+      <div class="console" id="a-con"></div>
+    </div>
+    <div class="note"><b>Heads up:</b> with <code>any()</code> there's no flag that says "a timeout did this" — you read it from <code>signal.reason.name</code>. That's why pairing it with <code>AbortSignal.timeout()</code> (which sets <code>TimeoutError</code>) is the idiomatic combo.</div>
+  </section>
+
+  <!-- 04 -->
+  <section id="noterror">
+    <div class="sec-no">04</div>
+    <h2>Abort is not an error</h2>
+    <p class="sec-intro">A cancelled operation did exactly what you asked. Don't surface it as a failure — no red toast, no Sentry event, no retry. Catch, check the name, and <b>swallow the abort</b> while still re-throwing everything else.</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">handle.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">try</span> {
+  <span class="t-kw">const</span> data = <span class="t-kw">await</span> <span class="t-fn">load</span>(url, signal);
+  <span class="t-fn">render</span>(data);
+} <span class="t-kw">catch</span> (err) {
+  <span class="t-kw">if</span> (err.name === <span class="t-str">'AbortError'</span>) <span class="t-kw">return</span>;   <span class="t-com">// expected — we cancelled it. say nothing.</span>
+  <span class="t-fn">showError</span>(err);                              <span class="t-com">// a real failure — handle it</span>
+}</code></pre>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <button class="act" id="n-bad">run with naïve catch</button>
+        <button class="act go" id="n-good">run with the name check</button>
+      </div>
+      <div class="console" id="n-con"></div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="react">
+    <div class="sec-no">05</div>
+    <h2>React: <code>useEffect</code> cleanup &amp; StrictMode</h2>
+    <p class="sec-intro">In dev, React StrictMode mounts → unmounts → mounts every effect to flush out missing cleanup. Without an abort, the first (discarded) request can resolve after the second and overwrite fresh state with stale data. The cleanup function aborts the controller, so the orphaned request dies quietly (caught by the §04 rule).</p>
+    <div class="code">
+      <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">useUser.jsx</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-fn">useEffect</span>(() =&gt; {
+  <span class="t-kw">const</span> controller = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>();
+
+  <span class="t-fn">fetch</span>(<span class="t-str">`/api/user/</span>${id}<span class="t-str">`</span>, { signal: controller.signal })
+    .<span class="t-fn">then</span>(r =&gt; r.<span class="t-fn">json</span>())
+    .<span class="t-fn">then</span>(setUser)
+    .<span class="t-fn">catch</span>(err =&gt; { <span class="t-kw">if</span> (err.name !== <span class="t-str">'AbortError'</span>) <span class="t-fn">setError</span>(err); });
+
+  <span class="t-kw">return</span> () =&gt; controller.<span class="t-fn">abort</span>();   <span class="t-com">// runs on unmount AND before every re-run (id change, StrictMode)</span>
+}, [id]);</code></pre>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <button class="act go" id="r-run">simulate StrictMode mount</button>
+      </div>
+      <div class="console" id="r-con"></div>
+    </div>
+    <div class="note"><b>Why it matters:</b> the cleanup fires <em>before</em> the next effect run, not just on final unmount. Race-on-prop-change (<code>id</code> flips fast) and StrictMode's double-invoke are the same bug — one abort fixes both.</div>
+  </section>
+
+  <!-- 06 -->
+  <section id="node">
+    <div class="sec-no">06</div>
+    <h2>Node: stream &amp; event-listener cleanup</h2>
+    <p class="sec-intro">The <code>{ signal }</code> option is the underrated half of the API. Pass it to <code>addEventListener</code> / <code>EventEmitter.on</code> / <code>events.once</code> / streams and the runtime removes the listener for you when the signal aborts — one abort tears down a whole subscription graph, no manual <code>removeListener</code> bookkeeping.</p>
+    <div class="grid2">
+      <div class="code">
+        <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">listeners.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">const</span> ac = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>();
+
+emitter.<span class="t-fn">on</span>(<span class="t-str">'data'</span>, onData,
+  { signal: ac.signal });
+
+target.<span class="t-fn">addEventListener</span>(<span class="t-str">'message'</span>, onMsg,
+  { signal: ac.signal });
+
+<span class="t-com">// one call detaches every listener above</span>
+ac.<span class="t-fn">abort</span>();</code></pre>
+      </div>
+      <div class="code">
+        <div class="bar"><div class="tl"><i></i><i></i><i></i></div><span class="fn">stream.js</span><button class="copy">copy</button></div>
+<pre><code class="js"><span class="t-kw">import</span> { once } <span class="t-kw">from</span> <span class="t-str">'node:events'</span>;
+
+<span class="t-kw">try</span> {
+  <span class="t-kw">const</span> [msg] = <span class="t-kw">await</span> <span class="t-fn">once</span>(emitter,
+    <span class="t-str">'ready'</span>, { signal: ac.signal });
+} <span class="t-kw">catch</span> (err) {
+  <span class="t-kw">if</span> (err.name === <span class="t-str">'AbortError'</span>) <span class="t-kw">return</span>;
+  <span class="t-kw">throw</span> err;
+}</code></pre>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="ctrls">
+        <button class="act go" id="e-emit">emit 'data' ×3</button>
+        <button class="act kill" id="e-abort">ac.abort() — detach all</button>
+        <button class="act" id="e-emit2" disabled>emit again (ignored)</button>
+      </div>
+      <div class="console" id="e-con"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Built as a runnable reference. All API behavior verified against the live 2026 spec — re-check the primary sources before you ship:</div>
+    <div class="src">
+      → <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal" target="_blank" rel="noopener">MDN · AbortSignal</a><br>
+      → <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static" target="_blank" rel="noopener">MDN · AbortSignal.timeout()</a><br>
+      → <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/any_static" target="_blank" rel="noopener">MDN · AbortSignal.any()</a><br>
+      → <a href="https://caniuse.com/mdn-api_abortsignal_timeout_static" target="_blank" rel="noopener">caniuse · timeout() support table</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- copy buttons ----
+  document.querySelectorAll('.code').forEach(function(block){
+    var btn = block.querySelector('.copy');
+    var pre = block.querySelector('code');
+    btn.addEventListener('click', function(){
+      navigator.clipboard.writeText(pre.innerText).then(function(){
+        btn.textContent = 'copied ✓'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent='copy'; btn.classList.remove('done'); }, 1400);
+      }).catch(function(){ btn.textContent='ctrl+c'; });
+    });
+  });
+
+  // ---- tiny console helper ----
+  function mkLog(id){
+    var el = document.getElementById(id);
+    return function(msg, cls, tag){
+      var ln = document.createElement('div'); ln.className='ln';
+      var t = new Date();
+      var ts = String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+'.'+String(t.getMilliseconds()).padStart(3,'0');
+      ln.innerHTML = '<span class="ts">'+ts+'</span>'
+        + (tag ? '<span class="tag">'+tag+'</span>' : '')
+        + '<span class="'+(cls||'info')+'">'+msg+'</span>';
+      el.appendChild(ln); el.scrollTop = el.scrollHeight;
+    };
+  }
+  function clear(id){ document.getElementById(id).innerHTML=''; }
+
+  // abortable "work" that behaves like fetch: rejects with signal.reason on abort
+  function work(ms, signal, onTick){
+    return new Promise(function(resolve, reject){
+      if (signal && signal.aborted) return reject(signal.reason);
+      var start = Date.now(), tick;
+      var done = function(){ clearInterval(tick); cleanup(); };
+      var cleanup = function(){ if (signal) signal.removeEventListener('abort', onAbort); };
+      var onAbort = function(){ done(); reject(signal.reason); };
+      if (signal) signal.addEventListener('abort', onAbort, { once:true });
+      tick = setInterval(function(){
+        var p = Math.min(1,(Date.now()-start)/ms);
+        if (onTick) onTick(p);
+        if (p >= 1){ done(); resolve('payload'); }
+      }, 60);
+    });
+  }
+
+  // ===== 01 cancel a fetch =====
+  (function(){
+    var log = mkLog('f-con'), bar=document.getElementById('f-bar');
+    var s=document.getElementById('f-start'), a=document.getElementById('f-abort');
+    var controller;
+    s.addEventListener('click', async function(){
+      clear('f-con'); bar.style.width='0%';
+      controller = new AbortController();
+      s.disabled=true; a.disabled=false;
+      log('new AbortController() → fetch(url, { signal })','armed','GET');
+      try{
+        await work(3200, controller.signal, function(p){ bar.style.width=(p*100).toFixed(0)+'%'; });
+        log('200 OK — response.json() resolved','ok','DONE');
+      }catch(err){
+        if (err && err.name==='AbortError') log('fetch rejected → DOMException name="'+err.name+'" — request killed','abort','ABORT');
+        else log('unexpected: '+err,'abort');
+      }finally{ s.disabled=false; a.disabled=true; }
+    });
+    a.addEventListener('click', function(){
+      log('controller.abort(new DOMException("user cancelled","AbortError"))','abort','CALL');
+      controller.abort(new DOMException('user cancelled','AbortError'));
+    });
+  })();
+
+  // ===== 02 AbortSignal.timeout =====
+  (function(){
+    var log=mkLog('t-con'), btn=document.getElementById('t-start'), ms=document.getElementById('t-ms');
+    btn.addEventListener('click', async function(){
+      clear('t-con'); btn.disabled=true;
+      var ttl=Math.max(200,+ms.value||1200);
+      log('AbortSignal.timeout('+ttl+') — task needs ~2000ms','armed','ARM');
+      var sig = AbortSignal.timeout(ttl);
+      try{
+        await work(2000, sig);
+        log('task finished before the timeout — resolved','ok','DONE');
+      }catch(err){
+        if (err && err.name==='TimeoutError') log('aborted → DOMException name="TimeoutError" (NOT AbortError)','timeout','TIMEOUT');
+        else log('aborted → '+(err&&err.name),'abort');
+      }finally{ btn.disabled=false; }
+    });
+  })();
+
+  // ===== 03 AbortSignal.any =====
+  (function(){
+    var log=mkLog('a-con'), bar=document.getElementById('a-bar');
+    var s=document.getElementById('a-start'), c=document.getElementById('a-cancel'), ms=document.getElementById('a-ms');
+    var user;
+    s.addEventListener('click', async function(){
+      clear('a-con'); bar.style.width='0%';
+      user=new AbortController();
+      var dl=Math.max(500,+ms.value||3000);
+      s.disabled=true; c.disabled=false;
+      log('AbortSignal.any([ userCancel.signal, AbortSignal.timeout('+dl+') ])','armed','COMPOSE');
+      var sig = AbortSignal.any([ user.signal, AbortSignal.timeout(dl) ]);
+      try{
+        await work(5000, sig, function(p){ bar.style.width=(p*100).toFixed(0)+'%'; });
+        log('upload complete before any abort fired','ok','DONE');
+      }catch(err){
+        var n = err && err.name;
+        if (n==='TimeoutError') log('signal.reason.name = "TimeoutError" → the '+dl+'ms deadline won','timeout','TIMEOUT');
+        else if (n==='AbortError') log('signal.reason.name = "AbortError" → the user won the race','abort','ABORT');
+        else log('aborted → '+n,'abort');
+      }finally{ s.disabled=false; c.disabled=true; }
+    });
+    c.addEventListener('click', function(){
+      log('userCancel.abort() — racing the timeout','abort','CALL');
+      user.abort(new DOMException('stopped by user','AbortError'));
+    });
+  })();
+
+  // ===== 04 abort is not an error =====
+  (function(){
+    var log=mkLog('n-con');
+    function run(strict){
+      clear('n-con');
+      var ac=new AbortController();
+      log('starting request, then aborting in 400ms…','armed','RUN');
+      var p = work(3000, ac.signal).then(function(){ log('rendered','ok'); })
+        .catch(function(err){
+          if (strict){
+            if (err.name==='AbortError'){ log('caught AbortError → return; (silent, correct)','ok','OK'); return; }
+            log('showError('+err.name+')','abort');
+          } else {
+            log('catch(err) → showError(err) — a red toast for work WE cancelled ✗','abort','BUG');
+            log('user sees a phantom failure; Sentry gets noise','abort');
+          }
+        });
+      setTimeout(function(){ ac.abort(new DOMException('superseded','AbortError')); }, 400);
+      return p;
+    }
+    document.getElementById('n-bad').addEventListener('click', function(){ run(false); });
+    document.getElementById('n-good').addEventListener('click', function(){ run(true); });
+  })();
+
+  // ===== 05 React StrictMode =====
+  (function(){
+    var log=mkLog('r-con'), btn=document.getElementById('r-run');
+    btn.addEventListener('click', async function(){
+      clear('r-con'); btn.disabled=true;
+      log('StrictMode dev double-invoke: mount → unmount → mount','info','REACT');
+      // mount #1
+      var c1=new AbortController();
+      log('effect run #1 → fetch /api/user/7 (signal A)','armed','MOUNT 1');
+      var r1=work(900,c1.signal).then(function(){ log('#1 resolved → setUser(stale) ✗ THIS is the bug if not aborted','abort'); })
+        .catch(function(e){ if(e.name==='AbortError') log('#1 aborted → setUser skipped (correct)','ok','CLEAN 1'); });
+      // cleanup #1 fires immediately before mount #2
+      await new Promise(function(r){ setTimeout(r,120); });
+      log('cleanup #1 → controller.abort()','abort','CLEANUP');
+      c1.abort(new DOMException('effect re-run','AbortError'));
+      // mount #2
+      var c2=new AbortController();
+      log('effect run #2 → fetch /api/user/7 (signal B)','armed','MOUNT 2');
+      var r2=work(700,c2.signal).then(function(){ log('#2 resolved → setUser(fresh) ✓ the only state that lands','ok','DONE'); })
+        .catch(function(e){ if(e.name==='AbortError') log('#2 aborted','abort'); });
+      await Promise.allSettled([r1,r2]);
+      btn.disabled=false;
+    });
+  })();
+
+  // ===== 06 Node listener cleanup =====
+  (function(){
+    var log=mkLog('e-con');
+    var emit=document.getElementById('e-emit'), ab=document.getElementById('e-abort'), emit2=document.getElementById('e-emit2');
+    var ac, target;
+    function arm(){
+      clear('e-con');
+      ac=new AbortController();
+      target=new EventTarget();
+      var n=0;
+      target.addEventListener('data', function(e){ log("onData → '"+e.detail+"'",'ok','RECV'); }, { signal: ac.signal });
+      log("emitter.on('data', onData, { signal: ac.signal }) — listener attached",'armed','ATTACH');
+      return function(){ n++; target.dispatchEvent(new CustomEvent('data',{detail:'chunk-'+n})); };
+    }
+    var fire=arm();
+    emit.addEventListener('click', function(){ for(var i=0;i<3;i++) fire(); emit2.disabled=false; });
+    ab.addEventListener('click', function(){
+      log('ac.abort() — runtime removes every { signal } listener','abort','ABORT');
+      ac.abort();
+      log('the listener is now detached; further events are dropped','info');
+    });
+    emit2.addEventListener('click', function(){
+      var before = document.getElementById('e-con').children.length;
+      target.dispatchEvent(new CustomEvent('data',{detail:'late'}));
+      // if detached, no RECV line was added
+      setTimeout(function(){
+        if (document.getElementById('e-con').children.length===before)
+          log('event fired but onData never ran — auto-cleaned ✓','ok','PROOF');
+      },10);
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>
