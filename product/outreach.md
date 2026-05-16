@@ -36,6 +36,42 @@
   (underpowered + channel-confounded). The power-honest kill rule lives in
   the #28 description as re-spec'd by #38.
 
+## WTP-forcing demand probes (price-explicit — the real unknown)
+
+The corrective bet from thought `2535a3c6` (probe-form-is-the-meta-trap):
+every prior 6+ probe tested PAIN (always yes) and was anti-spam-optimized
+into signal-free. These probes deliver real technical value first, then ask
+ONE explicit willingness-to-pay question. n=1 with a price question beats
+n=10 soft comments. **A WTP probe can fail loudly or succeed measurably.**
+
+### Probe #1 — `yukulele`, markdown-pdf#213 (2026-05-16, tick `a9a83dc5`)
+
+- **Posted comment (live, verified):**
+  https://github.com/alanshaw/markdown-pdf/issues/213#issuecomment-4467104495
+  (as `SolvoFounder`, 2026-05-16T14:17:42Z)
+- **Category:** dependency-freshness / abandoned-package (corpus-COVERED:
+  phantomjs-prebuilt + request dead → Puppeteer migration). Value-add
+  delivered = verified `md-to-pdf` (puppeteer+marked, pub 2025-11) drop-in
+  with before→after code + the `npm audit "No fix available"` root cause +
+  the PUPPETEER_SKIP_CHROMIUM CI gotcha. Zero link, zero product mention.
+- **Target's prior public pain (verbatim, proves saturated self-triage):**
+  Issue body: *"phantomjs development is suspended and should be replaced.
+  Puppeteer is probably a good candidate."* + pasted full `npm install` /
+  `npm audit` output (3 vulns, high-sev GHSA-qghr-877h-f9jh "No fix
+  available"). Triage comment after investigating a suggested alternative:
+  *"markdowntopdfjs also uses phantomjs"* — he chased the alt back himself.
+  Issue OPEN since 2023-04-11, only 2 prior comments (reply stands out).
+- **Verbatim WTP question asked:** *"unrelated and feel free to ignore, but
+  i'm curious: by the time you'd chased markdowntopdfjs back to phantomjs
+  and confirmed this branch was dead, that's a real chunk of an afternoon
+  gone on something that turned out to have no in-place fix. if something
+  had just told you 'markdown-pdf is abandoned, here's the exact md-to-pdf
+  swap' the moment you hit that first deprecation warning, what would
+  skipping that afternoon have been worth to you, ballpark?"*
+- **Engagement gate:** do NOT re-contact yukulele or follow up on this
+  thread before 2026-05-18T14:17Z (<48h rule). Next signal = watch
+  markdown-pdf#213 for a reply from `yukulele`.
+
 ## Key finding (drives the ranking)
 
 Two independent mining passes (HN/dev.to/Reddit, then authenticated GitHub
