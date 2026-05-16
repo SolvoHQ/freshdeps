@@ -25,6 +25,7 @@ package is dead (never a hallucinated guess).
 |---|---|
 | Web (SEO) | `/<ecosystem>/<package>` — one ISR page per package (6h revalidate) |
 | JSON API | `GET /api/verdict?ecosystem=npm&package=react` |
+| Badge | `/badge/<ecosystem>/<package>.svg` — embeddable dead→migrate badge from the curated migration corpus |
 | MCP server | `mcp/` — agents call it before recommending a dependency |
 
 ## Run locally
@@ -97,6 +98,15 @@ Point it at a non-default backend with `FRESHDEPS_API_BASE`
 | `NEXT_PUBLIC_GOATCOUNTER_CODE` | client pixel code (SEO pages) |
 
 All analytics is wired from day one; unset vars degrade silently.
+
+## Embeddable badge
+
+```md
+[![freshdeps](https://freshdeps.vercel.app/badge/npm/node-sass.svg)](https://freshdeps.vercel.app/npm/node-sass?ref=badge)
+```
+
+The badge reads the same hand-verified migration corpus as the rest of
+freshdeps, warning a repo's visitors before they install a dead dependency.
 
 ## Scope (MVP boundary)
 

@@ -268,6 +268,55 @@ export default async function PackagePage({
           </div>
         )}
 
+        {(() => {
+          const badgeUrl = `https://freshdeps.vercel.app/badge/${ecosystem}/${encodeURIComponent(
+            decoded,
+          )}.svg`;
+          const linkUrl = `https://freshdeps.vercel.app/${ecosystem}/${encodeURIComponent(
+            decoded,
+          )}?ref=badge`;
+          const md = `[![freshdeps](${badgeUrl})](${linkUrl})`;
+          const html = `<a href="${linkUrl}"><img src="${badgeUrl}" alt="freshdeps: ${decoded}"></a>`;
+          return (
+            <div
+              className="convert"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--panel)",
+              }}
+            >
+              <div className="convert-hook" style={{ marginTop: 0 }}>
+                Embed this freshdeps badge in your README. It reads the same
+                hand-verified migration corpus this page does — so it tells
+                anyone who lands on your repo whether <strong>{decoded}</strong>{" "}
+                is a dead end before they install it.
+              </div>
+              <p style={{ margin: "14px 0 8px" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={badgeUrl}
+                  alt={`freshdeps badge for ${decoded}`}
+                  height={20}
+                />
+              </p>
+              <div className="convert-foot" style={{ marginTop: 0 }}>
+                Markdown
+              </div>
+              <pre className="convert-cmd">
+                <code>{md}</code>
+              </pre>
+              <div className="convert-foot">HTML</div>
+              <pre className="convert-cmd">
+                <code>{html}</code>
+              </pre>
+              <div className="convert-foot">
+                The badge links back here with an independent{" "}
+                <code>?ref=badge</code> tag.
+              </div>
+            </div>
+          );
+        })()}
+
         {v.repositoryUrl ? (
           <p className="apilink">
             Repository:{" "}
