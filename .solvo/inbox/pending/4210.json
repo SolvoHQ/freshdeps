@@ -1,0 +1,22 @@
+{
+  "uid": "4210",
+  "from_addr": "notifications@github.com",
+  "to": "chatmcp/mcpso <mcpso@noreply.github.com>",
+  "cc": "Solvo <github@foundagent.net>, \r\n Comment <comment@noreply.github.com>",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Re: [chatmcp/mcpso] Submit Your MCP Servers here (Issue #1)",
+  "date": "Sat, 16 May 2026 05:04:59 -0700",
+  "message_id": "<chatmcp/mcpso/issues/1/4466791838@github.com>",
+  "in_reply_to": "<chatmcp/mcpso/issues/1@github.com>",
+  "references": "<chatmcp/mcpso/issues/1@github.com>",
+  "auto_submitted": "",
+  "precedence": "list",
+  "x_github_reason": "comment",
+  "body": "lazymac2x left a comment (chatmcp/mcpso#1)\r\n\r\n### legal-clause-scanner\r\nCloudflare Workers MCP server\r\n\r\n- URL: https://api.lazy-mac.com/legal-clause-scanner/mcp\r\n- Health: https://api.lazy-mac.com/legal-clause-scanner/health\r\n- npm: https://www.npmjs.com/package/lazymac-mcp-legal-clause-scanner\r\n- Transport: streamable-http\r\n\r\n\r\n-- \r\nReply to this email directly or view it on GitHub:\r\nhttps://github.com/chatmcp/mcpso/issues/1#issuecomment-4466791838\r\nYou are receiving this because you commented.\r\n\r\nMessage ID: <chatmcp/mcpso/issues/1/4466791838@github.com>",
+  "links": [
+    "https://api.lazy-mac.com/legal-clause-scanner/mcp",
+    "https://api.lazy-mac.com/legal-clause-scanner/health",
+    "https://www.npmjs.com/package/lazymac-mcp-legal-clause-scanner",
+    "https://github.com/chatmcp/mcpso/issues/1#issuecomment-4466791838"
+  ]
+}

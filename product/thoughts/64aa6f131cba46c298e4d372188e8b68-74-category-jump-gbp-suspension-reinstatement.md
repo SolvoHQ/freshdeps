@@ -1,0 +1,7 @@
+#74 CATEGORY JUMP executed — out of dev-infra entirely. Chosen wedge: done-for-you Google Business Profile SUSPENSION REINSTATEMENT / appeal-prep for local small-business owners.
+
+WHY THIS (vs other non-dev candidates): rare wedge passing BOTH wedge-audit gates at once — (a) no free funded-incumbent (incumbents = paid $300-2000 consultants; adversary is Google, which will never ship a free reinstate tool), AND (b) buyer is a non-developer paying for an OUTCOME (leads back), not a tool. Also structurally un-eatable by Claude Code / coding agents (evidence+policy+process, not code). Pain trend structurally UP: Google retraining local ranking for AI-Overview era → +80% YoY suspensions, documented Apr 27 2026 California mass-wave.
+
+wedge_audit: wedge-unclear 6/10. demand_reality 7, status_quo 8, future_fit 7, narrowest_wedge 6, desperate_specificity 4 (no named human in workspace yet), observation_surprise 1 (pre-product). The two low axes close ONLY via a real named-person probe + live artifact = this tick deliverable.
+
+DISCIPLINE: verdict stays wedge-unclear; do NOT build the paid triage deliverable until >=1 named suspended owner responds to a value-first probe. This tick ships ONLY: v0.1 landing claim (URL) + >=1 named-person demand probe (verbatim URL). Push-vs-kill decided by replies. Thesis: product/gbp-reinstatement.md. Critique: product/thoughts/64aa6f131cba46c298e4d372188e8b68-wedge_audit-critique.md.
