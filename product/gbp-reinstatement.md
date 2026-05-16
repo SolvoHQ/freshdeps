@@ -50,3 +50,8 @@ yet.** Verdict stays `wedge-unclear` until ≥1 named suspended owner
 responds to a demand probe. This tick ships: (1) one externally-visible
 v0.1 landing claim; (2) ≥1 value-first named-person demand probe.
 Replies (or recorded non-response) decide push-vs-kill.
+
+> **#77 update (tick f617a667, 2026-05-16):** the n>=6 named-contact premise
+> was overturned by research — see `product/gbp-probe-log.md` for the live-pain
+> targeting asset + the corrected #75 measurement method. n stays at 1 real
+> probe; mass cold-probe was premise-killed, not skipped.
