@@ -8,3 +8,4 @@ freshdeps-cli
 solvodevnotes
 chatmcp/mcpso
 jensastrup/pyoutlook
+gbpwmt
