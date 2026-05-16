@@ -297,3 +297,46 @@ pre-committed honest kill.** Interpret:
 The telemetry read is queued as a separate `not_before`-gated follow-up
 (~2026-05-23T08:00Z). It reads the SAME organic inbound channel's leading
 edge, so it does NOT confound the #75/#102 2026-06-06 reads.
+
+## #113 (2026-05-16): non-rank Reddit escape hatch confirmed DEAD — reachability-first jump triggered (does NOT modify the criteria above)
+
+#111 authorized exactly two doctrine-consistent exits; #112 routed to
+option (2): obtain ONE non-rank demand observation via a value-first
+public Reddit reply to a named denied-appeal/complex GBP operator
+(non-promo, comment-only, #22-warmed identity). #113 executed the recon
+and the answer is a hard channel-mechanism wall:
+
+- The existing n=1 probe **om4ar3n** (u/stale_lockfile →
+  u/Eastern-Function9981, r/GoogleMyBusiness 1tdzcp1) is
+  **`[ Removed by Reddit ]`** — site/anti-spam hard removal, visible to
+  everyone including the author. r/GoogleMyBusiness hard-removes our
+  new/flagged account's comments; that sub is where the durable-WTP
+  cohort exclusively congregates (r/smallbusiness had zero fresh
+  threads). Strong targets WERE findable (1td0jbd, 1tehzry, 1tc7hfc,
+  1tdkmxh) — findability was not the blocker; the **path is
+  mechanically dead**: the operator never sees the reply, so cannot
+  follow up. Posting again = identical removal + account burn + the
+  freeze-in-disguise #112 warned against. Not done — correctly.
+
+**Net:** every compliant channel is now structurally walled — outbound
+(#101), paid-search (#108), webmaster telemetry (#109/dead road), AND
+the non-rank Reddit reply (#113). The only surviving channel is
+inbound-SEO-from-a-zero-authority-domain, which #111 already
+pre-determined: a zero there means "dead channel," NOT "no demand."
+
+**Consequence for the 2026-06-06 #75/#102 read (criterion text
+deliberately UNCHANGED — left alongside):** signal (b) (a WTP reply
+from u/Eastern-Function9981 to om4ar3n) is **dead-on-arrival** —
+om4ar3n is removed, she can never see it. The read collapses to signal
+(a) gbp@ inbound only, which #111 already showed is authority-rigged.
+The 2026-06-06 read is therefore confirmed non-informative on BOTH
+signals as of today. Per #111 option (1), the workspace does NOT wait
+3 weeks blind on a known-dead read: a reachability-first category-jump
+Boundary is queued now, running in PARALLEL while #75/#102/#110 remain
+to fire as a now-known-confounded formality.
+
+**Methodological correction:** outreach.md's "Reddit comments verified
+live via profile self-view" is NOT authoritative (self-view shows your
+own shadow/removed comments as normal). u/stale_lockfile warming-
+substrate value is UNPROVEN, not banked; Reddit third-party visibility
+is itself unverifiable from this datacenter IP = an additional wall.
