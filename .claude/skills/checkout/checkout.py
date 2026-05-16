@@ -382,3 +382,61 @@ class Checkout:
                 (tick_id,),
             ).fetchone()
             return row["c"]
+
+
+# --- Flat, env-aware wrappers (runtime-agnostic skill invocation) -----
+# ADDITIVE: the Checkout class + Claude's Skill-tool path are untouched
+# (Claude-regression safe). These give `solvo.skillcall` (Codex et al.)
+# a uniform flat entrypoint for the loop-critical ops without the agent
+# having to instantiate Checkout. The db + tick_id come from the env
+# the heartbeat already sets for every agent subprocess
+# (SOLVO_WORKSPACE / SOLVO_TICK_ID — see solvo.spawn).
+
+def _env_checkout() -> "Checkout":
+    import os
+    ws = os.environ.get("SOLVO_WORKSPACE")
+    if not ws:
+        raise RuntimeError(
+            "SOLVO_WORKSPACE not set — checkout wrappers must run inside "
+            "an agent subprocess (heartbeat sets it)."
+        )
+    return Checkout(Path(ws) / "problems" / "checkout.db")
+
+
+def _problem_to_dict(p) -> dict:
+    try:
+        from dataclasses import asdict, is_dataclass
+        if is_dataclass(p):
+            return asdict(p)
+    except Exception:
+        pass
+    return getattr(p, "__dict__", {"repr": str(p)})
+
+
+def list_queue() -> list[dict]:
+    """Active queue (pending+checked_out) in position order, as JSON-
+    safe dicts. Read-only situational awareness."""
+    return [_problem_to_dict(p) for p in _env_checkout().list_queue()]
+
+
+def add_problem(
+    description: str,
+    position: "int | None" = None,
+    created_by: str = "agent",
+    not_before: "str | None" = None,
+) -> int:
+    """Insert a new problem; returns its id. Same semantics as the
+    Checkout.add the Skill tool uses."""
+    return _env_checkout().add(
+        description, position, created_by, not_before
+    )
+
+
+def complete_problem(problem_id: int, tick_id: "str | None" = None) -> dict:
+    """Mark the checked-out problem done. tick_id defaults to the
+    heartbeat-set SOLVO_TICK_ID. Pure mechanical action — leave any
+    reasoning via record_thought FIRST."""
+    import os
+    tid = tick_id or os.environ.get("SOLVO_TICK_ID")
+    _env_checkout().complete(int(problem_id), tid)
+    return {"completed": int(problem_id), "tick_id": tid}

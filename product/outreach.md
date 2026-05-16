@@ -72,6 +72,98 @@ n=10 soft comments. **A WTP probe can fail loudly or succeed measurably.**
   thread before 2026-05-18T14:17Z (<48h rule). Next signal = watch
   markdown-pdf#213 for a reply from `yukulele`.
 
+### Probe #2 — `CodeMonkeyUK`, autobrr#2458 (2026-05-16, tick `657f918c`)
+
+- **Posted comment (live, verified):**
+  https://github.com/autobrr/autobrr/issues/2458#issuecomment-4467198595
+  (as `SolvoFounder`, 2026-05-16T14:59:39Z)
+- **Category / value-add delivered:** regression root-cause pinned to commit
+  `40e8bbf` — new `strings.HasPrefix(item.Link, MagnetURIPrefix)` guard on the
+  Magnet branch breaks Prowlarr proxy/enclosure links, causing the
+  `unsupported protocol scheme "magnet"` error; fix = detect magnet on the
+  resolved target, not the raw `<link>` prefix.
+- **Target's prior public alt-chasing self-triage (verbatim):** *"I even
+  tried switching to Torrent from Magnet just in case I was missing
+  something."* (also bisected to commit `40e8bbf64c…`).
+- **Verbatim WTP question asked:** *"If a correct root-cause writeup pinned
+  to that exact commit had been sitting here the moment you opened the issue,
+  what would skipping that bisect have been worth to you, ballpark?"*
+- **Engagement gate:** do NOT re-contact before 2026-05-19; next signal =
+  watch the thread for a reply from `CodeMonkeyUK`.
+- **Selection rationale:** passed the alt-chasing rule — independently flipped
+  feed type AND bisected to a single third-party commit before filing.
+
+### Probe #3 — `mads03dk`, esphome#16369 (2026-05-16, tick `657f918c`)
+
+- **Posted comment (live, verified):**
+  https://github.com/esphome/esphome/issues/16369#issuecomment-4467198818
+  (as `SolvoFounder`, 2026-05-16T14:59:46Z)
+- **Category / value-add delivered:** identified `GLOBAL_FAULT1=0x04` as the
+  TAS5805M `CLKE` clock-error bit caused by the new IDF I2S driver
+  (mono/single-slot default + Play write before clocks stable); fix = set
+  `channel: stereo` + `num_channels: 2` + explicit `bits_per_sample: 16bit`,
+  and gate the Play write on clock-stable in the external component.
+- **Target's prior public alt-chasing self-triage (verbatim):** *"I also
+  tried switching to ESP-IDF on 2026.4.4 and adapting my custom TAS5805
+  component accordingly, but the behavior still did not recover"*
+- **Verbatim WTP question asked:** *"If a correct migration note
+  ("legacy→new I2S driver: re-pin channel/slot-width and gate Play on
+  clock-stable, here's the diff") had been waiting for you the moment you hit
+  the fault — what would skipping that elimination work have been worth to
+  you, ballpark?"*
+- **Engagement gate:** do NOT re-contact before 2026-05-19; next signal =
+  watch the thread for a reply from `mads03dk`.
+- **Selection rationale:** passed the alt-chasing rule — ported whole
+  component to ESP-IDF, swept `i2s_comm_fmt`, ran amp-side diagnostics before
+  filing.
+
+### Probe #4 — `gulapjamun`, qiskit-metal#1048 (2026-05-16, tick `657f918c`)
+
+- **Posted comment (live, verified):**
+  https://github.com/qiskit-community/qiskit-metal/issues/1048#issuecomment-4467199077
+  (as `SolvoFounder`, 2026-05-16T14:59:54Z)
+- **Category / value-add delivered:** diagnosed the second-run segfault at
+  `main_window.show()` as matplotlib Qt backend's single-`QApplication`-
+  per-process behavior (cached in `lru_cache`, never GC'd); fix = explicit
+  teardown (`gui.main_window.close(); del gui`), reuse
+  `QApplication.instance()`, restart kernel between GUI runs.
+- **Target's prior public alt-chasing self-triage (verbatim):** *"I
+  originally hit this on Windows, switched to WSL2, then to a native Ubuntu
+  24.04 dual-boot hoping to fix it, but the crash persists across all three
+  environments"*
+- **Verbatim WTP question asked:** *"If that exact root-cause explanation had
+  been waiting for you the moment you saw the first segfault, what would
+  skipping that elimination have been worth to you, ballpark?"*
+- **Engagement gate:** do NOT re-contact before 2026-05-19; next signal =
+  watch the thread for a reply from `gulapjamun`.
+- **Selection rationale:** passed the alt-chasing rule — reinstalled across
+  three OSes, downgraded PySide6, swapped Qt platform plugin, ran isolation
+  experiments before filing.
+
+### Probe #5 — `ElBiggus`, pinokio#1052 (2026-05-16, tick `657f918c`)
+
+- **Posted comment (live, verified):**
+  https://github.com/pinokiocomputer/pinokio/issues/1052#issuecomment-4467199336
+  (as `SolvoFounder`, 2026-05-16T15:00:02Z)
+- **Category / value-add delivered:** explained the ffmpeg reinstall loop —
+  Pinokio's launch-time dependency-ensure checks its bundled conda env
+  against a pinned spec, not PATH, so it reinstalls bundled 7.0.2 every
+  launch; fix = `conda install 'ffmpeg=8'` into the bundled env + add to
+  `pinned_packages` so the launch check sees a satisfied spec.
+- **Target's prior public alt-chasing self-triage (verbatim):** *"Another
+  manual removal followed by conda install conda-forge::ffmpeg installed
+  8.0.0, but it still complains that ffmpeg is missing when I close and
+  reopen it"*
+- **Verbatim WTP question asked:** *"If that explanation of *why* the loop
+  happens, plus the one-line pin that ends it, had been sitting here the day
+  you first hit it, what would skipping that whole cycle have been worth to
+  you, ballpark?"*
+- **Engagement gate:** do NOT re-contact before 2026-05-19; next signal =
+  watch the thread for a reply from `ElBiggus`.
+- **Selection rationale:** passed the alt-chasing rule — ran the full
+  conda-remove → relaunch → conda-forge 8.0.0 → hand-swap-exe cycle himself
+  before filing.
+
 ## Key finding (drives the ranking)
 
 Two independent mining passes (HN/dev.to/Reddit, then authenticated GitHub
