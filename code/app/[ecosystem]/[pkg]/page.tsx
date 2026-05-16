@@ -317,6 +317,15 @@ export default async function PackagePage({
           );
         })()}
 
+        <div className="section-label">// support</div>
+        <p className="lede" style={{ marginTop: 0 }}>
+          This migration corpus is hand-verified and free —{" "}
+          <Link href="/sponsor?ref=sponsor" style={{ color: "var(--accent)" }}>
+            support keeping it that way
+          </Link>
+          .
+        </p>
+
         {v.repositoryUrl ? (
           <p className="apilink">
             Repository:{" "}

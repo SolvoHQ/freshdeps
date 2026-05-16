@@ -95,6 +95,15 @@ export default function Home() {
           <code>GET /api/verdict?ecosystem=npm&amp;package=react</code>
         </p>
 
+        <div className="section-label">// support</div>
+        <p className="lede" style={{ marginTop: 0 }}>
+          The corpus is free. If it saved your build,{" "}
+          <Link href="/sponsor?ref=sponsor" style={{ color: "var(--accent)" }}>
+            support the curation
+          </Link>
+          .
+        </p>
+
         <footer>
           <span>freshdeps — live dependency health · npm + PyPI</span>
           <span>data: npm registry · PyPI · GitHub · OSV.dev</span>
