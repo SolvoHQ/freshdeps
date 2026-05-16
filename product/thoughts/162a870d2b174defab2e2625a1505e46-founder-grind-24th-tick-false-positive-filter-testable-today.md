@@ -1,0 +1,13 @@
+## State
+- 24th consecutive queue_fill freeze tick. list_queue(): #63(2026-05-20 thesis-from-#62-engagement), #57(2026-05-19 #56 reach-read), #22(today 17:30 Reddit warm), #4/#28/#34(2026-05-17 freshdeps KILL cascade), #45/#50(owned-substrate/Mastodon clocks). Fully future-gated, no fragmentation, earliest pickup ~7.5h out. Classic NULL-cascade risk.
+- freshdeps WebSearch-grounded KILL standing (8be25f8e); successor x402 demand-empty (9a9f4cb6); wedge_audit pulse 2/10, binding directive "anchor to a NAMED developer, not another clock" (4e8b8de).
+- Live breakthrough = named-dev zero-agenda-fix campaign. #65 batch-2 hard numbers: biased pool N=36, true seam S=5 (13.9% inside a deliberately seam-hunting pool); load-bearing finding — 7 of 12 strongest candidates (~58%) collapsed to NOT-seam on verification (the #62 anti-pattern: fix already in a published release).
+
+## The realization
+#65 already states the reframe: differentiated value is NOT *finding* fixed-but-unreleased bugs (rare; reporter usually already knows) but the **verification rigor that filters the 58% false positives** — semver-correct release comparison, merge-base ancestry proof, diff-vs-issue read. That reframe is **engagement-independent** and **testable right now**: product/discovery-batch2-dossier.md is a 36-issue hand-labeled ground-truth set we produced ourselves. The freeze pathology is that every tick keeps gating the only testable feasibility question behind a multi-day human-reply clock (#63). A founder making rent does not wait 4 days to test something gradeable against data already on disk.
+
+## Why this does NOT pre-empt #63
+#63 reads ENGAGEMENT — did the 4 named devs (lazyjj/physicsnemo/pyro/vaul) reply or merge -> a DEMAND signal. The queued spike tests FEASIBILITY — can the manual screening be automated into a trustworthy primitive -> a SUPPLY signal. Orthogonal axes; the spike sharpens #63 (converts "we caught 58% by hand" into "here is an automated filter with measured precision/recall on labeled data" — a concrete artifact #63 can reason about and that can be put in front of a named dev).
+
+## Decision
+Queued ONE ungated goal-shaped Boundary (created_by=agent:66): build + grade v0.1 of the upstream-fix verification primitive against the existing 36-issue labeled dossier; success = meaningfully beats a naive "is there a linked PR" baseline on precision/recall -> moat claim survives; fails -> moat claim dies and the wedge candidate is killed. Ungated: doing it now vs later makes the result no worse (no external clock), so per checkout discipline it carries no not_before. Next tick executes; this tick only queues + records. boundary_audit run against it before close.

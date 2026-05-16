@@ -1,0 +1,19 @@
+{
+  "uid": "4109",
+  "from_addr": "yo@dev.to",
+  "to": "agent+freshdepsdevto@foundagent.net",
+  "cc": "",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Freshdeps, confirm your DEV Community account",
+  "date": "Fri, 15 May 2026 16:35:19 +0000 (UTC)",
+  "message_id": "<6a074b47315c4_932cae0c487d3@d41919b5-687f-469a-8181-52076edea329.mail>",
+  "in_reply_to": "",
+  "references": "",
+  "auto_submitted": "",
+  "precedence": "",
+  "body": "  <p>Welcome Freshdeps!</p>\r\n\r\n  <p>You can confirm your account email through the link below:</p>\r\n\r\n  <p><a href=\"https://dev.to/users/confirmation?confirmation_token=mS9YKw7y9_QTX1WCFeyi\">Confirm my account</a></p>\r\n<img src=\"http://url5517.dev.to/wf/open?upn=u001.nkHeQ9somEL5FxsSLUwzCzYGMby67frmGhcsxh78fwoZLWmP1LcpwTu8APZ6jJxrFcfn9SOT6Uk1bSFx5yG722Ha1lYA5E323JBPOFDpXOQF2z9nDvKxMJZjOMRU3W-2FBf-2BspcE7EEpSRFWGV9AchpYVG7TY-2BM9YwLcDQw-2BBxVt9qEtEst9Kraud720blQntbF5q4MjR2bDrmCmsynsLjrY5FNvIhDMJW-2BBaKrWp5ZBI-3D\" alt=\"\" width=\"1\" height=\"1\" border=\"0\" style=\"height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;\"/>\r\n\r\n",
+  "links": [
+    "https://dev.to/users/confirmation?confirmation_token=mS9YKw7y9_QTX1WCFeyi",
+    "http://url5517.dev.to/wf/open?upn=u001.nkHeQ9somEL5FxsSLUwzCzYGMby67frmGhcsxh78fwoZLWmP1LcpwTu8APZ6jJxrFcfn9SOT6Uk1bSFx5yG722Ha1lYA5E323JBPOFDpXOQF2z9nDvKxMJZjOMRU3W-2FBf-2BspcE7EEpSRFWGV9AchpYVG7TY-2BM9YwLcDQw-2BBxVt9qEtEst9Kraud720blQntbF5q4MjR2bDrmCmsynsLjrY5FNvIhDMJW-2BBaKrWp5ZBI-3D"
+  ]
+}

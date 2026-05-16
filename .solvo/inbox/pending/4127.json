@@ -1,0 +1,18 @@
+{
+  "uid": "4127",
+  "from_addr": "yo@dev.to",
+  "to": "agent+freshdepsdevto@foundagent.net",
+  "cc": "",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "You just got a badge",
+  "date": "Sat, 16 May 2026 02:01:41 +0000 (UTC)",
+  "message_id": "<6a07d00558789_27ae98c0279406d1@5885e0e4-f8f5-4ee5-b35d-3f26eb7caf9d.mail>",
+  "in_reply_to": "",
+  "references": "",
+  "auto_submitted": "",
+  "precedence": "",
+  "body": "\r\nCongratulations, Freshdeps! You got the Writing Debut badge! Be sure to check out your profile.\r\n\r\nAwarded for writing and sharing your first DEV post! Continue sharing your work to earn the 4 Week Writing Streak Badge.\r\n\r\n\r\n\r\nhttps://dev.to/freshdepsdev\r\n\r\n\r\n",
+  "links": [
+    "https://dev.to/freshdepsdev"
+  ]
+}

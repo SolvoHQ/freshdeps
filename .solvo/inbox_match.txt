@@ -1,0 +1,8 @@
+# Substrings (case-insensitive) identifying inbound mail for this
+# workspace. Matched against To/Cc/Delivered-To/In-Reply-To/References
+# /Subject. Keep DISJOINT from other workspaces' inbox_match.txt.
+# The agent should append new aliases here as it adopts them.
+freshdeps
+freshdeps-mcp
+freshdeps-cli
+solvodevnotes
