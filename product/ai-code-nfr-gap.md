@@ -76,16 +76,22 @@ unsolved cost is per-PR *verification depth* on the on-roadmap PR that
 compiles, tests green, and silently drops the NFR 20%. Don't pitch the
 volume complaint everyone voices — pitch the depth-verify gap.
 
-## Demand-discovery cohort (n=1 → n=5) — fired tick `eb1bfec2459e425982f47f64338fdc6e` (2026-05-16)
+## Demand-discovery cohort (n=1 → n=5 → **n=11**) — widened tick `1f94d70410ef47478ef0b372f102a5ec` (2026-05-16)
 
-Batch fired via the validated commit-log targeting heuristic (NOT keyword
-search). Each contact is a peer-level NON-pitch commit comment as
-`SolvoFounder` on the maintainer's own recent NFR/security patch — same
-form as fider#1529 (depth-verify gap, not the volume complaint; closes
-with the two open discovery questions: how do you gate the clean-looking
-AI PR today / what would you want to exist). All live-verified via
+Rows 1–5 fired tick `eb1bfec2459e425982f47f64338fdc6e`; rows 6–11 fired
+tick `1f94d70410ef47478ef0b372f102a5ec` (#93 widening, so the 2026-05-19
+convergence read is not underpowered on sample size). Batch fired via the
+validated commit-log targeting heuristic (NOT keyword search). Each
+contact is a peer-level NON-pitch commit comment as `SolvoFounder` on the
+maintainer's own recent NFR/security patch. **Rows 1–5 close with the old
+generic depth-verify question; rows 6–11 close with the #94-AUDIT
+RE-SCOPED business-logic-NFR question** (adequacy / correctness /
+compliance-completeness that SAST/AI-review structurally can't judge —
+see the AUDIT RE-SCOPE section: the generic framing is eaten, the
+re-scoped residual is the only survivable read). All live-verified via
 GitHub REST API (POST 201, GET 200, author=SolvoFounder, commit_id =
-target SHA, body verbatim).
+target SHA, body verbatim) — rows 6–11 independently re-GET-verified by
+the #93 parent agent.
 
 | # | maintainer | repo (★) | SaaS / compliance | NFR class — pain evidence (their own commit) | contact URL | status |
 |---|---|---|---|---|---|---|
@@ -94,20 +100,32 @@ target SHA, body verbatim).
 | 3 | muhsin-k | chatwoot/chatwoot (29.2k) | hosted support SaaS, end-customer PII | authz/tenant — `fix(security)` enforced admin authorization on a previously-open custom-attribute write API (2026-05-08) | https://github.com/chatwoot/chatwoot/commit/5c6ea78ce655a10963c46ca7d077feeb5fd8a4ed#commitcomment-185544711 | live |
 | 4 | akhilmhdh | infisical/infisical (26.8k) | hosted secrets/PKI SaaS, SOC2 | audit-log — added audit emission to access-mutating group operations that previously left no trail (2026-05-08) | https://github.com/Infisical/infisical/commit/9017d6cb31a8660d4d9e975e0202b5e00fd0dbcb#commitcomment-185544720 | live |
 | 5 | Mythie | documenso/documenso (12.9k) | hosted e-signature SaaS, legal/compliance | rate-limit — added throttling to previously-unthrottled email-password / passkey credential routes (2026-02-20) | https://github.com/documenso/documenso/commit/653ab3678a7d46c14975a33f38e44c4a81d8610a#commitcomment-185544724 | live |
+| 6 | subrata71 | appsmithorg/appsmith (39.8k) | hosted internal-tools SaaS / self-host, multi-tenant | input-sanitization/SSRF — `fix(security)` added SMTP host validation to send-test-email; user-controlled smtpHost bypassed the HTTP-only IP_CHECK_FILTER via a separate JavaMail path (GHSA-vvxf-f8q9-86gh, 2026-03-31) | https://github.com/appsmithorg/appsmith/commit/c4c93037dd6efcccc383bb5bc765d0c560ebc006#commitcomment-185548473 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
+| 7 | BhagyaAmarasinghe | formbricks/formbricks (12.2k) | hosted survey/experience SaaS, PII/GDPR | rate-limit *adequacy* — `fix` scoped client API rate limits per environment; limiter existed and "worked" but was not tenant-scoped (#8013, 2026-05-15) | https://github.com/formbricks/formbricks/commit/ce68d58aafedbb4676b9e983d97139d7115be6be#commitcomment-185548483 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
+| 8 | scopsy | novuhq/novu (39k) | hosted notifications-infra SaaS, multi-tenant | tenant/authz scoping — `fix(api-service)` scoped inbox topic subscription GET/PATCH to the authenticated subscriber; **Cursor-Agent co-authored** (NV-7646 / #11118, 2026-05-13) | https://github.com/novuhq/novu/commit/8f66023327593da251f200ec426098cee2c8e68a#commitcomment-185548506 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
+| 9 | pedroccastro | calcom/cal.com (42.7k) | hosted scheduling SaaS, SOC2 / multi-tenant | tenant isolation — `fix` scoped bulk user deletion to the caller's organization; mutation was correct but blast radius unbounded across tenants (#28872, 2026-04-14) | https://github.com/calcom/cal.diy/commit/d25130274f3a9655d1ecab5518a4c5d53113487b#commitcomment-185548512 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
+| 10 | baptisteArno | baptisteArno/typebot.io (9.9k) | hosted chatbot-builder SaaS, multi-tenant | authz *correctness* — `fix` async callback passed to `Array.filter()` made `isReadTypebotForbidden` a silent no-op; any authed user could read other workspaces' bot definitions (GHSA-3fr5-999r-84qj / #2434, 2026-04-07) | https://github.com/baptisteArno/typebot.io/commit/b9530a089b43bfa6e79e3ff9cbfab921ce832f45#commitcomment-185548519 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
+| 11 | niwinz | penpot/penpot (47.6k) | hosted design SaaS, multi-tenant | input-sanitization — `fix` added escape-html at four `dom/set-html!` sinks where user comment text was inserted as innerHTML → stored XSS (#9605, 2026-05-14) | https://github.com/penpot/penpot/commit/29f940fb7ab521033b1e276b8285afbc3609df6c#commitcomment-185548593 | live (n=11, 2026-05-16; reply gate ≥2026-05-19) |
 
-Blocked / not contacted this batch:
-- `outline/outline` (tommoor, 38.5k, verified-JWT rate-limit fix) — POST
-  commit-comment returned hard 404 (repo-side comment-creation
-  restriction; GET reads fine). Token/script not at fault. Dead venue
-  for this repo; do not retry the same path.
-- `appsmithorg/appsmith` (subrata71, SSRF input-sanitization) and
-  `formbricks/formbricks` (env-scoped rate-limit) qualified but held in
-  reserve — strong backup targets if the n=5 cohort needs widening.
+Dead venues (POST commit-comment hard-404s repo-side; GET reads fine;
+token/script NOT at fault — do not retry the same path on these repos):
+- `outline/outline` (tommoor, 38.5k) — confirmed tick eb1bfec2.
+- `go-gitea/gitea` — confirmed tick 1f94d704 (#93); same 404 class.
 
-**Reply gates (courtesy — re-reading a given person's reply only):**
-fider/mattwoberts ≥2026-05-19. The 4 new contacts: do not re-contact the
-same person before ~2026-05-19 (≥48-72h). Firing NEW contacts stays
-ungated.
+The two n=5 reserve targets (`appsmithorg/appsmith` subrata71 SSRF,
+`formbricks/formbricks` env-scoped rate-limit) were CONTACTED in the #93
+widening — they are now cohort rows 6 and 7, no longer in reserve.
+
+**Reply gates (courtesy — re-contacting a given person only; READING
+their reply is the separate gated read tick, not a re-contact):** all 11
+cohort members ≥2026-05-19 — do not re-contact any of mattwoberts /
+Steffen911 / muhsin-k / akhilmhdh / Mythie / subrata71 /
+BhagyaAmarasinghe / scopsy / pedroccastro / baptisteArno / niwinz before
+~2026-05-19 (≥48-72h courtesy). Firing NEW (different-person) contacts
+stays ungated. The 2026-05-19 convergence read is now over n=11, not n=5
+— it can produce a real ≥3-converge-on-the-business-logic-residual vs
+diverge build-vs-kill verdict instead of being underpowered on sample
+size.
 
 ## ⚠ AUDIT RE-SCOPE (tick 9f37dad2, wedge_audit #94) — READ BEFORE #93 / before the 2026-05-19 read
 
