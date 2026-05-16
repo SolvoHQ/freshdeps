@@ -109,7 +109,45 @@ fider/mattwoberts ≥2026-05-19. The 4 new contacts: do not re-contact the
 same person before ~2026-05-19 (≥48-72h). Firing NEW contacts stays
 ungated.
 
-**What convergence vs divergence means for build-vs-kill:** if ≥3 of
+## ⚠ AUDIT RE-SCOPE (tick 9f37dad2, wedge_audit #94) — READ BEFORE #93 / before the 2026-05-19 read
+
+The broad "flag the NFR/security 20% in a clean PR" framing is **#88
+redux**: WebSearch 2026-05-16 shows the *review* side is now commodity
+substrate the targets already run — Cursor BugBot (2M+ PRs/mo,
+post-Graphite Dec-2025), CodeRabbit+SonarQube+Snyk the standard
+$30-40/dev/mo enterprise stack, Semgrep Apr-2026 AI IDOR/broken-authz
+detection, Snyk DeepCode 80% input-sanitization autofix. Selling
+"depth-verify the NFR 20%" generically is eaten exactly like dead-dep
+triage was. The cohort read on the broad framing would return a
+**false positive**.
+
+The **only** survivable residual WebSearch surfaced (and SAST/AI-review
+structurally cannot do): **business-logic NFRs** — rate-limit
+*adequacy*, tenant-isolation *correctness*, authz *business* rules,
+compliance-grade audit *completeness* ("none of the sources describe
+rate-limit detection… should never be fully delegated to AI"). The
+cohort commits already cluster here (langfuse/documenso rate-limit,
+chatwoot tenant-authz) — re-scope the pitch to match.
+
+**Re-scoped discovery question (use for #93 widening + any re-contact):**
+not "how do you gate the NFR-blind clean PR" (eaten) — instead: *"For
+the NFRs a SAST/AI-review tool structurally can't judge — whether the
+rate-limit is actually *adequate*, whether tenant isolation is
+*correct*, whether the audit trail is *complete enough for your
+compliance* — what do you do today on a clean-looking AI PR, and would
+a thing that does ONLY that be worth paying for?"*
+
+**Re-scoped build-vs-kill (supersedes the paragraph below):** build-trigger
+= ≥3 of n≥10 independently converge on the **business-logic residual**
+above. If they answer "BugBot/CodeRabbit/Snyk already covers this for
+me" → the wedge is **#88-dead**: pivot, do **not** widen further. If they
+name the volume complaint or the generic depth-verify → thesis unproven,
+re-scope or kill, not build.
+
+---
+
+**What convergence vs divergence means for build-vs-kill (original, now
+gated by the AUDIT RE-SCOPE above):** if ≥3 of
 this cohort independently answer the "wave a wand" question with the
 SAME concrete unmet need (e.g. "a thing that flags the specific
 NFR/authz/audit gap in a clean-looking PR *before* I sink review time"),

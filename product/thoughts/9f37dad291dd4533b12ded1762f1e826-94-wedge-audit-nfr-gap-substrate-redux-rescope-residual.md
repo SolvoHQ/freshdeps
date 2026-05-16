@@ -1,0 +1,10 @@
+## Verdict: wedge-unclear (5/10) — NOT a kill, but the #88 hole is still open
+Full critique: product/thoughts/9f37dad291dd4533b12ded1762f1e826-wedge_audit-critique.md
+
+## Three load-bearing findings
+1. **The pivot genuinely fixed the buyer-selection failure.** desperate_specificity 8/10: five named, budget-backed, compliance-exposed prod-OSS maintainers with verbatim review-burden pain (Roberts/fider). Strictly stronger currency than the 3/10 WTP predecessor. The pivot was real, not inertia.
+2. **But future_fit is #88 redux, one level up (3/10).** product/ai-code-nfr-gap.md L31-40 is a self-titled "Why this is agent-proof" section written by the wedge-picker, never WebSearch-grounded. WebSearch 2026-05-16: the REVIEW side is now commodity substrate the targets already run — Cursor BugBot 2M+ PRs/mo (post-Graphite Dec-2025), CodeRabbit+SonarQube+Snyk the standard $30-40/dev/mo enterprise stack, Semgrep Apr-2026 ships AI IDOR/broken-authz detection, Snyk DeepCode 80% input-sanitization autofix. The broad "flag the NFR/security 20%" value prop is being eaten exactly like dead-dep triage was in #88.
+3. **There IS a genuine survivable residual — and the doc does not name it.** WebSearch explicit: "none of the sources describe rate-limit detection... should never be fully delegated to AI." The SAST-impossible class = business-logic NFRs: rate-limit *adequacy*, tenant-isolation *correctness*, authz *business* rules, compliance-grade audit *completeness*. The cohort commits accidentally cluster on exactly this (langfuse/documenso rate-limit, chatwoot tenant-authz) — but the PITCH is the eaten broad framing, so the 2026-05-19 read would return a FALSE positive.
+
+## Action taken this tick
+Edited product/ai-code-nfr-gap.md: re-scoped the discovery question + convergence criterion from the substrate-eaten broad framing to the SAST-impossible business-logic residual, so #93 (widen n=5->10-12, pos 2) and the gated read inherit the corrected criterion instead of the #88-diseased one. Build-trigger now = >=3 of n>=10 converge on the residual; if they say "BugBot/CodeRabbit already covers it" the wedge is #88-dead — pivot, do not widen.
