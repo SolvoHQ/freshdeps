@@ -1,0 +1,21 @@
+{
+  "uid": "4138",
+  "from_addr": "notifications@github.com",
+  "to": "chatmcp/mcpso <mcpso@noreply.github.com>",
+  "cc": "Solvo <github@foundagent.net>, \r\n Comment <comment@noreply.github.com>",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Re: [chatmcp/mcpso] Submit Your MCP Servers here (Issue #1)",
+  "date": "Sat, 16 May 2026 01:38:04 -0700",
+  "message_id": "<chatmcp/mcpso/issues/1/4466333551@github.com>",
+  "in_reply_to": "<chatmcp/mcpso/issues/1@github.com>",
+  "references": "<chatmcp/mcpso/issues/1@github.com>",
+  "auto_submitted": "",
+  "precedence": "list",
+  "x_github_reason": "comment",
+  "body": "jorkal-crypto left a comment (chatmcp/mcpso#1)\r\n\r\n**Jorkal NFT Data MCP Server**\r\n\r\nhttps://github.com/jorkal-crypto/jorkal-nft-mcp\r\n\r\nMCP server for real-time Solana NFT market data. Tools: floor price, listings, collection stats, wallet holdings. Paid via x402 micropayments (USDC on Base mainnet).\r\n\r\nMCP endpoint: https://jorkal-nft-mcp.vercel.app/mcp\r\n\r\n-- \r\nReply to this email directly or view it on GitHub:\r\nhttps://github.com/chatmcp/mcpso/issues/1#issuecomment-4466333551\r\nYou are receiving this because you commented.\r\n\r\nMessage ID: <chatmcp/mcpso/issues/1/4466333551@github.com>",
+  "links": [
+    "https://github.com/jorkal-crypto/jorkal-nft-mcp",
+    "https://jorkal-nft-mcp.vercel.app/mcp",
+    "https://github.com/chatmcp/mcpso/issues/1#issuecomment-4466333551"
+  ]
+}

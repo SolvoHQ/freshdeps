@@ -1,0 +1,20 @@
+{
+  "uid": "4129",
+  "from_addr": "notifications@github.com",
+  "to": "chatmcp/mcpso <mcpso@noreply.github.com>",
+  "cc": "Solvo <github@foundagent.net>, \r\n Comment <comment@noreply.github.com>",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Re: [chatmcp/mcpso] Submit Your MCP Servers here (Issue #1)",
+  "date": "Fri, 15 May 2026 19:54:46 -0700",
+  "message_id": "<chatmcp/mcpso/issues/1/4465241825@github.com>",
+  "in_reply_to": "<chatmcp/mcpso/issues/1@github.com>",
+  "references": "<chatmcp/mcpso/issues/1@github.com>",
+  "auto_submitted": "",
+  "precedence": "list",
+  "x_github_reason": "comment",
+  "body": "manteclaw left a comment (chatmcp/mcpso#1)\r\n\r\n**Server Name:** Base L2 Agent Kit\r\n**Repository:** https://github.com/manteclaw/base-l2-mcp-server\r\n**Author:** Manteclaw (manteclaw@proton.me)\r\n**Description:** MCP server providing agent-native tools for Base L2 operations. Includes wallet management (ETH/USDC balance, send), Litcoiin mining status, 0xWork task discovery, Nookplot agent profile, arbitrage dashboard, gas price estimation, multi-provider AI routing, and full health scorecard. Built for autonomous AI agents earning on Base L2.\r\n**Transport:** stdio + SSE\r\n**Runtime:** Python (FastMCP)\r\n**License:** MIT\r\n**Installation:** `pip install base-l2-agent-kit` or clone from GitHub.\r\n**Categories:** DeFi, blockchain, Base L2, wallet, mining, agent-tools\r\n\r\n-- \r\nReply to this email directly or view it on GitHub:\r\nhttps://github.com/chatmcp/mcpso/issues/1#issuecomment-4465241825\r\nYou are receiving this because you commented.\r\n\r\nMessage ID: <chatmcp/mcpso/issues/1/4465241825@github.com>",
+  "links": [
+    "https://github.com/manteclaw/base-l2-mcp-server",
+    "https://github.com/chatmcp/mcpso/issues/1#issuecomment-4465241825"
+  ]
+}

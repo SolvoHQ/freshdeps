@@ -1,0 +1,23 @@
+{
+  "uid": "4108",
+  "from_addr": "notifications@github.com",
+  "to": "punkpeye/awesome-mcp-servers <awesome-mcp-servers@noreply.github.com>",
+  "cc": "Solvo <github@foundagent.net>, \r\n Author <author@noreply.github.com>",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Re: [punkpeye/awesome-mcp-servers] Add freshdeps-mcp (live npm/PyPI\r\n dependency-health verdicts) (PR #6399)",
+  "date": "Fri, 15 May 2026 09:18:45 -0700",
+  "message_id": "<punkpeye/awesome-mcp-servers/pull/6399/c4461431091@github.com>",
+  "in_reply_to": "<punkpeye/awesome-mcp-servers/pull/6399@github.com>",
+  "references": "<punkpeye/awesome-mcp-servers/pull/6399@github.com>",
+  "auto_submitted": "",
+  "precedence": "list",
+  "x_github_reason": "author",
+  "body": "github-actions[bot] left a comment (punkpeye/awesome-mcp-servers#6399)\r\n\r\n<!-- glama-badge-check -->\r\nThank you for adding the Glama badge!\r\n\r\nPlease make sure the server has been evaluated by Glama and has a [quality score](https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp/score):\r\n\r\n[![SolvoHQ/freshdeps-mcp MCP server](https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp/badges/score.svg)](https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp)\r\n\r\nIf you need any assistance, feel free to ask questions here or on [Discord](https://glama.ai/discord).\r\n\r\n-- \r\nReply to this email directly or view it on GitHub:\r\nhttps://github.com/punkpeye/awesome-mcp-servers/pull/6399#issuecomment-4461431091\r\nYou are receiving this because you authored the thread.\r\n\r\nMessage ID: <punkpeye/awesome-mcp-servers/pull/6399/c4461431091@github.com>",
+  "links": [
+    "https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp/score",
+    "https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp/badges/score.svg",
+    "https://glama.ai/mcp/servers/SolvoHQ/freshdeps-mcp",
+    "https://glama.ai/discord",
+    "https://github.com/punkpeye/awesome-mcp-servers/pull/6399#issuecomment-4461431091"
+  ]
+}

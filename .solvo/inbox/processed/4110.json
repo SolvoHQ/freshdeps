@@ -1,0 +1,21 @@
+{
+  "uid": "4110",
+  "from_addr": "notifications@github.com",
+  "to": "chatmcp/mcpso <mcpso@noreply.github.com>",
+  "cc": "Solvo <github@foundagent.net>, \r\n Comment <comment@noreply.github.com>",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "Re: [chatmcp/mcpso] Submit Your MCP Servers here (Issue #1)",
+  "date": "Fri, 15 May 2026 10:04:57 -0700",
+  "message_id": "<chatmcp/mcpso/issues/1/4461711459@github.com>",
+  "in_reply_to": "<chatmcp/mcpso/issues/1@github.com>",
+  "references": "<chatmcp/mcpso/issues/1@github.com>",
+  "auto_submitted": "",
+  "precedence": "list",
+  "x_github_reason": "comment",
+  "body": "carloshpdoc left a comment (chatmcp/mcpso#1)\r\n\r\n**memorydetective** — iOS leak hunting + performance investigation MCP server.\r\n\r\n- npm: https://www.npmjs.com/package/memorydetective\r\n- GitHub: https://github.com/carloshpdoc/memorydetective\r\n- MCP Registry: \\`io.github.carloshpdoc/memorydetective\\`\r\n- License: Apache-2.0\r\n- Latest: v1.16.0\r\n- Platform: macOS (depends on \\`leaks(1)\\` + \\`xctrace\\`)\r\n\r\n**41 MCP tools** across two surfaces:\r\n\r\n- **Memgraph side** (cycle detection): \\`analyzeMemgraph\\`, \\`findCycles\\`, \\`classifyCycle\\` (36-pattern retain-cycle catalog with Swift \\`fixTemplate\\` snippets), \\`findRetainers\\`, \\`countAlive\\`, \\`diffMemgraphs\\`, \\`verifyFix\\` (per-pattern PASS/FAIL with abandoned-memory fallback), \\`analyzeAbandonedMemory\\` (KVO / NotificationCenter / cache shapes that escape \\`leaks(1)\\`), \\`renderCycleGraph\\` (Mermaid / DOT export).\r\n- **Trace side** (\\`.trace\\` analysis): \\`inspectTrace\\`, \\`summarizeTrace\\` (single-call cross-schema synthesis returning markdown card), \\`analyzeHangs\\` (with main-thread violation classifier), \\`analyzeAnimationHitches\\`, \\`analyzeTimeProfile\\`, \\`analyzeAllocations\\`, \\`analyzeAppLaunch\\`, \\`analyzeNetworkActivity\\`, \\`analyzeMemoryFootprint\\`, \\`analyzeEnergyImpact\\`, \\`analyzeLeakTimeline\\`, \\`compareTracesByPattern\\` (CI gate on hangs / hitches / launch regressions).\r\n\r\n**Verify-fix workflow**: \\`bootAndLaunchForLeakInvestigation\\` + \\`replayScenario\\` (with optional per-step screenshot capture) + \\`captureScenarioState\\` + \\`compareTracesByPattern\\` close the before/after loop in a single agent chain.\r\n\r\n**CI-friendly**: \\`detectLeaksInXCTest\\` + \\`detectLeaksInXCUITest\\` ship self-contained HTML reports for PR-gate use. Generic CLI runner \\`memorydetective tool <name> --input input.json\\` for use without an MCP client.\r\n\r\n**macOS 26.x workarounds baked in**: structured \\`workaroundNotice\\` on \\`captureMemgraph\\` for the \\`task_for_pid\\` regression, pre-flight probe + auto-open Instruments on the xctrace \\`--time-limit\\` wedge, and v1.16 \\`recordViaInstrumentsApp\\` which wraps the Instruments.app GUI flow when the CLI path is broken.\r\n\r\n**Source bridging**: \\`swiftGetSymbolDefinition\\`, \\`swiftGetSymbolsOverview\\`, \\`swiftFindSymbolReferences\\`, \\`swiftSearchPattern\\`, \\`swiftGetHoverInfo\\` via SourceKit-LSP.\r\n\r\nThe MCP Registry already lists this server. Adding the mcp.so entry rounds out distribution. Thanks!\r\n\r\n-- \r\nReply to this email directly or view it on GitHub:\r\nhttps://github.com/chatmcp/mcpso/issues/1#issuecomment-4461711459\r\nYou are receiving this because you commented.\r\n\r\nMessage ID: <chatmcp/mcpso/issues/1/4461711459@github.com>",
+  "links": [
+    "https://www.npmjs.com/package/memorydetective",
+    "https://github.com/carloshpdoc/memorydetective",
+    "https://github.com/chatmcp/mcpso/issues/1#issuecomment-4461711459"
+  ]
+}
