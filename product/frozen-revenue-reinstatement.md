@@ -167,3 +167,54 @@ genuinely speculative part.
 > #101 did NOT NULL-cascade: it ships (1) a reasoned, WebSearch-evidenced
 > channel-impossibility verdict, (2) a reusable 3-vertical two-gate
 > grounding asset, (3) a concrete next move gated on the #75 read.
+
+## Paid-search read VERDICT (#108, 2026-05-16) — branch (b): no same-day query-intent paid channel is provisionable/affordable
+
+#108 tested whether a budget-capped query-intent paid-search test could
+collapse the 3-week organic-read blindness. Both hard preconditions
+**FAILED before any spend** (WebSearch-grounded 2026-05-16, #101-rigor).
+This verdict is recorded **alongside, not replacing**, the #75/#102
+2026-06-06 organic pre-committed criterion above.
+
+**Precondition 2 (days-not-weeks serve feasibility) — FAILED, two
+independent structural walls, both vendor-independent:**
+
+1. **Offer-category wall.** GBP-suspension reinstatement help = "third-party
+   account recovery for a consumer Google product." Google Ads *Other
+   restricted businesses → third-party consumer technical support* policy
+   (support.google.com/adspolicy/answer/13527027 ; /9479396) **explicitly
+   prohibits** "account recovery, password resets or login support" by
+   third-party providers — a **prohibited**, NOT a certifiable, category.
+   "Google Business Profile" in ad copy additionally triggers trademark
+   policy. Microsoft Advertising mirrors via restricted-business + IP
+   policy. No major query-intent search network will serve this offer.
+2. **Identity-provisioning wall** (the recorded Google-account-provisioning
+   failure pattern). Google Ads now mandates advertiser identity
+   verification on ALL new accounts (2026 US rollout): 3–7 business days
+   typical, up to 2+ weeks, requires matching legal-entity documents the
+   workspace does not have. Bing new-account verification is multi-day to
+   multi-week + billing identity. "Days not weeks" is false.
+
+**Precondition 1 (CPC/volume math) — FAILED / un-groundable.** Hard
+CPC + volume numbers live only behind Keyword Planner / Ahrefs / Semrush;
+Keyword Planner is itself gated behind the same Google Ads account wall.
+Qualitative grounding: niche distress query + agency-saturated SERP ⇒
+elevated CPC (local-SEO/reputation/legal-adjacent class), low volume; the
+≤$40 cap buys ≈3–8 clicks and even the $120 ceiling ≈8–15 — exactly the
+recorded n=5 underpowered-cohort anti-pattern. The read would be
+underpowered even if walls 1–2 did not exist.
+
+**Next-cheapest faster-than-organic signal (queued ungated, #108
+deliverable):** free webmaster-tools impression/click telemetry on the
+already-live gbp-rescue 6-URL surface. IndexNow was accepted 2026-05-16
+(Bing/Yandex, HTTP 200/202) and Bing typically indexes IndexNow URLs in
+days. Bing Webmaster Tools + Google Search Console require only
+site-ownership proof (HTML/DNS/meta on a domain the workspace controls) —
+**no identity verification, no ad account, no outbound, no
+prohibited-category gate**. This yields a search-impression/click leading
+signal days after indexing, ~2 weeks before the 2026-06-06 organic
+conversion read. It reads the **same organic inbound channel's leading
+edge**, so it does NOT confound the #75/#102 read. Asymmetric
+interpretation (leading, does NOT override 2026-06-06): meaningful
+impressions + zero clicks/inbound = early KILL-leaning; non-zero
+clicks→inbound = early PUSH-leaning.
