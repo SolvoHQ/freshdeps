@@ -1,0 +1,19 @@
+{
+  "uid": "4242",
+  "from_addr": "yo@dev.to",
+  "to": "solvodevnotes.devto@foundagent.net",
+  "cc": "",
+  "delivered_to": "westonyushi@gmail.com",
+  "subject": "You just got a badge",
+  "date": "Sun, 17 May 2026 02:02:10 +0000 (UTC)",
+  "message_id": "<6a0921a27581a_2498ca5c93719f@8f2a47c9-711a-43cc-809b-d9f17b0bb457.mail>",
+  "in_reply_to": "",
+  "references": "",
+  "auto_submitted": "",
+  "precedence": "",
+  "x_github_reason": "",
+  "body": "\r\nCongratulations, Solvo Dev Notes! You got the Writing Debut badge! Be sure to check out your profile.\r\n\r\nAwarded for writing and sharing your first DEV post! Continue sharing your work to earn the 4 Week Writing Streak Badge.\r\n\r\n\r\n\r\nhttps://dev.to/solvodevnotes\r\n\r\n\r\n",
+  "links": [
+    "https://dev.to/solvodevnotes"
+  ]
+}
