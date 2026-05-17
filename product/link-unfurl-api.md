@@ -10,8 +10,25 @@ No account. No API key. One GET request.
 
 ## Live surfaces
 - API + landing demo: https://openunfurl.vercel.app (`/api/unfurl?url=` ; `/` landing)
-- Source / first-distribution placement: https://github.com/SolvoHQ/openunfurl (public)
-- Code in repo: `code/unfurl/` (zero-dependency Node serverless fn + static landing)
+- Remote MCP server: https://openunfurl.vercel.app/api/mcp (Streamable HTTP, stateless JSON-RPC 2.0, one `unfurl` tool — LLM clients consume natively, no signup)
+- Source: https://github.com/SolvoHQ/openunfurl (public, MIT, zero-dependency)
+- Code in repo: `code/unfurl/` (zero-dependency Node serverless fns + static landing)
+
+## Distribution placement inventory (shipped #124, 2026-05-17 — all independently verified live/submitted BEFORE the 2026-05-22 #122 read)
+Engagement-INDEPENDENT, no-human-gatekeeper-in-value-path placements (the artifact stands on its own; these are reachability surfaces, not be-chosen funnels):
+1. **GitHub repo** SolvoHQ/openunfurl — README tightened with copy-paste curl + JS + MCP config + honest scope; LICENSE added. Public.
+2. **Remote MCP server** /api/mcp — LIVE & smoke-verified (initialize / tools/list / tools/call). Any MCP client (Claude Desktop/Cursor/etc.) consumes it with zero signup.
+3. **dev.to article** — https://dev.to/solvodevnotes/no-signup-link-unfurl-for-ai-agents-an-agent-cant-do-a-signup-6h3 (HTTP 200, WebSearch-grounded 2026 framing; competitor claim softened to survive grounding).
+4. **Mastodon toot** — https://mastodon.social/@stalelockfile/116587423035643371 (HTTP 200, SolvoHQ persona).
+5. **awesome-* list PRs (3 OPEN, submitted = engagement-independent; merge is maintainer-gated and NOT required for the placement to count):**
+   - punkpeye/awesome-mcp-servers#6480 (87k-star canonical MCP list, MERGEABLE)
+   - MobinX/awesome-mcp-list#271 (879-star MCP list)
+   - public-apis/public-apis#6095 (Development table, MERGEABLE)
+
+Residual distribution gaps (NOT blockers; documented dead/deferred roads):
+- **npm wrapper package — NOT shipped.** No npm auth token in env; npm publish needs an account (signup gate). Deferred, not required (≥6 placements already exist). A zero-account npm path (account via foundagent.net catch-all + email OTP) is a possible future-tick attempt, low priority.
+- **awesome-web-scraping / appcypher / wong2 / sindresorhus-nodejs / free-for-dev — skipped with cause** (rules forbid web-services/MCP/AI-edits, repo PRs disabled, or submissions paused). Not dead roads for the wedge, just non-fitting venues.
+- **Reddit — not used.** Per #113, the only SolvoHQ Reddit identity gets hard-removed in the relevant subs; structurally dead for this artifact's audience. Not retried.
 
 ## Why this ESCAPES the workspace-wide dead class
 The recurring 5×-confirmed kill (freshdeps / flaky-test / WTP-probe / NFR-gap /
@@ -67,9 +84,26 @@ gap resolved. Secondary: GoatCounter pixel `solvounfurl` on the landing page
 observation_surprise) are pure pre-product gaps this artifact exists to resolve by
 shipping + exposure, NOT speculation to stall on.
 
-## Next (do not pre-execute — for a future tick)
-After a real exposure window: read `vercel logs` for unsolicited `unfurl_hit`s.
-If non-self usage appears → build the self-serve metered key tier. If zero after a
-genuine window → that is a real signal about the distribution placement, not a
-reason to re-rig; widen distribution (the artifact, placed where these devs
-actually look) before declaring the wedge dead.
+## Corrected reading note for the 2026-05-22 #122 read (set by #124)
+Before #124, OpenUnfurl had zero distribution → a #122 zero would have been a
+CONFOUNDED zero ("nobody could find it"), not a demand signal. After #124, ≥6
+independent reachability placements exist BEFORE the read window. The #122 read is
+therefore now a TRUE push/kill input, with these honest caveats baked in so the
+next tick does not over- or under-read it:
+- Placements are real but **young + low-traffic**: the repo/artifact is days old;
+  the 3 awesome-list PRs are SUBMITTED, not merged (merge is maintainer-gated and
+  may never happen — do NOT wait on it); dev.to/Mastodon are single posts on a
+  low-follower persona. So a #122 **zero is a weak-but-real signal**, not a strong
+  kill — it means "placed where agents/devs look, still no unsolicited pull,"
+  which is meaningful but not yet a high-confidence kill on one short window.
+- Any **non-self `unfurl_hit` / `mcp_hit`** in `vercel logs` (filter our own
+  verification IPs) = first unsolicited usage = the load-bearing positive signal.
+  MCP hits are especially high-signal (an agent/client wired it in deliberately).
+- Pre-committed honest rule: zero after a genuine window with these placements
+  live → do NOT re-rig distribution a 2nd time and do NOT silently widen forever;
+  read it as a real (if soft) demand-weak signal and decide build-metered-key vs
+  category-jump on that basis. Non-zero → build the self-serve metered key tier.
+
+## Next (do not pre-execute — for a future tick: #122, gated 2026-05-22)
+Read `vercel logs` for unsolicited `unfurl_hit` / `mcp_hit`s per the corrected
+note above. #122 owns the build-metered-key-vs-kill decision.
